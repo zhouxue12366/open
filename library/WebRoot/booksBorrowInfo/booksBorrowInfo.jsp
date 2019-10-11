@@ -17,7 +17,7 @@
 			</h1>
 			<div align="center">
 				<label>借书人(工号):</label>
-				<input type="text" id="booksBorrowInfo.employeeId" name="booksBorrowInfo.employeeId" />
+				<input type="text" id="booksBorrowInfo.employeeId" name="booksBorrowInfo.employeeId" value="${employee.id}" />
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				<input type="button" onclick="queryBorrowInfo()" value="查看借阅情况" />&nbsp;&nbsp;<font size="5" color="red" >${employeeIdMsg }${booksInfoMsg }</font>					
 			</div><br></br>
@@ -25,7 +25,7 @@
 				<label>图书选择(编号):</label>
 				<input type="hidden" id="booksBorrowInfo.booksInfo_id" name="booksBorrowInfo.booksInfo_id" />
 				<input disabled type="text" id="booksBorrowInfo.booksSerialNo" name="booksBorrowInfo.booksSerialNo" />
-				<a href="javascript:openBooksInfo();">点击</a>${booksClass_idMsg}
+				<a href="javascript:openBooksInfo();">选择图书</a>${booksClass_idMsg}
 				&nbsp;&nbsp;&nbsp;&nbsp;
 				<label>中文名称:</label>
 				<input disabled type="text" id="booksBorrowInfo.booksNameCN" name="booksBorrowInfo.booksNameCN" />
@@ -40,7 +40,7 @@
 				<table class="list">
 					<tbody>
 						<tr>
-						<td colspan="9"><font color="red" >已借阅图书</font></td>
+						<td colspan="9"><font color="red" >${employee.name}</font>&nbsp;&nbsp;已借阅图书</td>
 						</tr>
 						<tr>
 							<th width="10%">图书编号</th>

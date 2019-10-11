@@ -15,10 +15,13 @@ import com.jfinal.plugin.activerecord.Record;
 public class BooksInfo extends Model<BooksInfo>{
 	public static final BooksInfo me = new BooksInfo();
 	
-	public Page<Record> paginate(int pageNumber, int pageSize){
-		
+	public Page<Record> paginate(int pageNumber, int pageSize, String booksNameCN){
+		String sql = "from booksInfo ,booksClass ,booksPublish where booksInfo.booksClass_id = booksClass.id and booksInfo.booksPublish_id = booksPublish.id";
+		if(null != booksNameCN && !"".equals(booksNameCN)){
+			sql = sql + " and booksNameCN like '%"+booksNameCN+"%'";
+		}
 		return Db.paginate(pageNumber, pageSize,"select  booksInfo.id,booksInfo.booksSerialNo,booksInfo.volumeNumber,booksClass.className as booksClass_name,booksInfo.booksNameCN,booksPublish.publishname as booksPublish_name,booksInfo.publishDate,booksInfo.recordDate,booksInfo.borrowTimes,booksInfo.status "
-				,"from booksInfo ,booksClass ,booksPublish where booksInfo.booksClass_id = booksClass.id and booksInfo.booksPublish_id = booksPublish.id");
+				,sql);
 					
 	}
 	

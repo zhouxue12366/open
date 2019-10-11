@@ -7,6 +7,12 @@
 <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
 <link href="${contextPath}/css/manage.css" media="screen"
 	rel="stylesheet" type="text/css" />
+	<script>
+	function query(url){
+		var booksNameCN = document.getElementById("booksNameCN");
+		window.location.href=url + booksNameCN.value;
+	}
+	</script>
 </head>
 <body>
 	<div class="manage_container">
@@ -14,6 +20,7 @@
 		<div class="main">
 			<h1>
 				图书管理&nbsp;&nbsp; <a href="${contextPath}/booksInfo/add">添加</a>
+				<br>输入图书名称查询：<input type="text" id="booksNameCN" value="${booksNameCN}" /> <a href="javascript:;" onclick="query('${contextPath}/booksInfo/?booksNameCN=')">查询</a>
 			</h1>
 			<div class="table_box">
 				<table class="list">
