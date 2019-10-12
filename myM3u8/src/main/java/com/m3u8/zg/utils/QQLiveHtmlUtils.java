@@ -2,7 +2,7 @@ package com.m3u8.zg.utils;
 
 import org.jsoup.nodes.Document;
 /**
- * 增对腾讯视频的工具类
+ * 腾讯视频的工具类
  * @Title QQLiveHtmlUtils.java
  * @Description 
  * @Company: 周大炮工作室
