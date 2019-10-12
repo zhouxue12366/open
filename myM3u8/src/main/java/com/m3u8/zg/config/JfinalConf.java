@@ -7,8 +7,6 @@ import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.template.Engine;
-import com.m3u8.zg.controller.IndexController;
-import com.m3u8.zg.controller.VideoController;
 
 /**
  * jfinal配置类
@@ -30,8 +28,7 @@ public class JfinalConf extends JFinalConfig {
 		// 如果要将控制器超类中的 public 方法映射为 action 配置成 true，一般不用配置
 		me.setMappingSuperClass(true);
 		// me.setBaseViewPath("/view");
-		me.add("/index", IndexController.class);
-		me.add("/video", VideoController.class);
+		me.add(new RouteConfig());
 	}
 
 	public void configEngine(Engine me) {
