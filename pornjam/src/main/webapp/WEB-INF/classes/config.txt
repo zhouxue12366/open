@@ -1,0 +1,28 @@
+##jdbcUrl = jdbc:mysql://172.16.20.70:3306/ig_gamer?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+jdbcUrl = jdbc:log4jdbc:mysql://172.16.20.70:3306/ig_gamer?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+user = xzj
+password =xzj2016
+devMode = true
+driverClass=net.sf.log4jdbc.DriverSpy
+
+##redis配置
+redis_host = 172.16.20.160
+##redis_host = 127.0.0.1
+redis_prot = 6379
+##redis扫描开关
+redis_devMode = false
+
+upload_path = \\data\\static\\upload\\images\\
+##图片显示地址
+images_src = http://172.16.20.160/
+##images_src = http://image.iggamer.com/
+
+##热门销售请求地址
+hot_selling_url = http://api.iggamer.com/api/Equipment/Get_HotEquipment
+
+
+##热销商品套装请求地址
+hot_suit_selling_url = http://api.iggamer.com/api/Equipment/Get_Suit
+
+##查询主播信息
+get_anchors_data = http://pb.steamao.com/live_list?page_size=20&page_index=1 

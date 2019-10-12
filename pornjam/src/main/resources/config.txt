@@ -1,0 +1,8 @@
+##jdbcUrl = jdbc:mysql://172.16.20.70:3306/ig_gamer?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+jdbcUrl = jdbc:mysql://localhost:3306/pornjam?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+##user = xzj
+##password =xzj2016
+
+user = root
+password =root
+devMode = true

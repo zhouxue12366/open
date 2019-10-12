@@ -16,7 +16,7 @@ import com.m3u8.zg.model.M3U8;
 
 public class VideoController extends Controller{
 
-	public static String TEMP_DIR = "tempM3u8";
+	public static String TEMP_DIR = "E://zg//m3u8//";
 	public static int connTimeout = 30 * 60 * 1000;
 	public static int readTimeout = 30 * 60 * 1000;
 	public static String s1 = "http://playertest.longtailvideo.com/adaptive/bipbop/gear4/prog_index.m3u8";
