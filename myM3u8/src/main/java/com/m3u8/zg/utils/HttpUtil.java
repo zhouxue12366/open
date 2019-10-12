@@ -34,6 +34,13 @@ import org.apache.http.util.EntityUtils;
 import com.alibaba.fastjson.JSONObject;
 
 /**
+ * HTTP请求工具类
+ * @Title HttpUtil.java
+ * @Description 
+ * @Company: 周大炮工作室
+ * @author zg
+ * @date 2019年10月12日 下午5:23:18
+ * @version V1.0
  */
 public class HttpUtil {
 

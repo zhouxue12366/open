@@ -6,9 +6,9 @@ import java.io.Serializable;
  * 分页工具类
  * @Title PageUtil.java
  * @Description 
- * @Company: 软岛
+ * @Company: 周大炮工作室
  * @author zg
- * @date 2019年7月26日 下午3:49:37
+ * @date 2019年10月12日 下午5:25:22
  * @version V1.0
  */
 public class PageUtil implements Serializable {

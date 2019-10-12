@@ -14,6 +14,15 @@ import java.nio.channels.FileChannel;
 import com.jfinal.core.Controller;
 import com.m3u8.zg.model.M3U8;
 
+/**
+ * 测试下载m3u8的demo
+ * @Title VideoController.java
+ * @Description 
+ * @Company: 周大炮工作室
+ * @author zg
+ * @date 2019年10月12日 下午5:20:40
+ * @version V1.0
+ */
 public class VideoController extends Controller{
 
 	public static String TEMP_DIR = "E://zg//m3u8//";

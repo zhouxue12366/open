@@ -6,6 +6,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * json转换工具类
+ * @Title JsonParser.java
+ * @Description 
+ * @Company: 周大炮工作室
+ * @author zg
+ * @date 2019年10月12日 下午5:25:05
+ * @version V1.0
+ */
 public class JsonParser {
 	private static ObjectMapper mapper;
 

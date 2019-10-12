@@ -8,9 +8,9 @@ import com.m3u8.zg.controller.VideoController;
  * 自定义路由
  * @Title RouteConfig.java
  * @Description 
- * @Company: 软岛
+ * @Company: 周大炮工作室
  * @author zg
- * @date 2019年10月12日 下午4:01:50
+ * @date 2019年10月12日 下午5:20:19
  * @version V1.0
  */
 public class RouteConfig extends Routes{

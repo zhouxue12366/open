@@ -4,9 +4,13 @@ import com.jfinal.server.undertow.UndertowServer;
 import com.m3u8.zg.config.JfinalConf;
 
 /**
- * 程序启动类,两种启动方式
+ * 程序启动类,两种启动方式,两种方式的包引入不同,本次使用第一种
+ * @Title ApplicationMain.java
+ * @Description 
+ * @Company: 周大炮工作室
  * @author zg
- *
+ * @date 2019年10月12日 下午5:25:43
+ * @version V1.0
  */
 public class ApplicationMain {
 

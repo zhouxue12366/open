@@ -1,7 +1,15 @@
 package com.m3u8.zg.utils;
 
 import org.jsoup.nodes.Document;
-
+/**
+ * 增对腾讯视频的工具类
+ * @Title QQLiveHtmlUtils.java
+ * @Description 
+ * @Company: 周大炮工作室
+ * @author zg
+ * @date 2019年10月12日 下午5:20:03
+ * @version V1.0
+ */
 public class QQLiveHtmlUtils {
 
 	public static Document openHtml(String documentUrl){

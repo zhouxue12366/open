@@ -10,12 +10,11 @@ import com.jfinal.template.Engine;
 
 /**
  * jfinal配置类
- * 
- * @Title JfinalConfig.java
- * @Description
- * @Company: 软岛
+ * @Title JfinalConf.java
+ * @Description 
+ * @Company: 周大炮工作室
  * @author zg
- * @date 2019年10月12日 上午10:48:18
+ * @date 2019年10月12日 下午5:20:11
  * @version V1.0
  */
 public class JfinalConf extends JFinalConfig {

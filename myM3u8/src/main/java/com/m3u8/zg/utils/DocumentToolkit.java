@@ -11,6 +11,15 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+/**
+ * 爬虫基本类工具类
+ * @Title DocumentToolkit.java
+ * @Description 
+ * @Company: 周大炮工作室
+ * @author zg
+ * @date 2019年10月12日 下午5:22:59
+ * @version V1.0
+ */
 public class DocumentToolkit {
 	public static final int GET = 0;
 	public static final int POST = 1;
