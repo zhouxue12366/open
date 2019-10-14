@@ -15,7 +15,8 @@ public class QQLiveController extends Controller{
 	
 	public void getJs(){
 		String documentUrl ="https://v.qq.com/x/cover/bzfkv5se8qaqel2.html?ptag=qqbrowser";
-		String rootJs = QQLiveHtmlUtils.getJs(documentUrl);
-		renderHtml(rootJs);
+//		String rootJs = QQLiveHtmlUtils.getJs(documentUrl);
+//		set("rootJs", rootJs);
+		render("/views/index.html");
 	}
 }

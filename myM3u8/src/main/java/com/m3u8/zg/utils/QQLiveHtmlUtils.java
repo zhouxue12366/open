@@ -35,7 +35,7 @@ public class QQLiveHtmlUtils {
 	 * @since 2019年10月12日 下午5:46:22
 	 */
 	public static String getJs(String documentUrl){
-		String rootJs = DocumentToolkit.getJSVariable(documentUrl, "COVER_INFO");
+		String rootJs = DocumentToolkit.getJSVariable(documentUrl, "VIDEO_INFO");
 		System.out.println(rootJs);
 		return rootJs;
 	}
