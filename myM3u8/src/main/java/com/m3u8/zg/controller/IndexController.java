@@ -16,4 +16,9 @@ public class IndexController extends Controller {
 	public void index() {
 		renderText("Hello JFinal World.");
 	}
+	
+	public void app(){
+		System.out.println("to app html......");
+		render("/views/app.html");
+	}
 }

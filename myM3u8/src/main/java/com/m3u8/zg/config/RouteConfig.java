@@ -17,6 +17,7 @@ public class RouteConfig extends Routes{
 
 	@Override
 	public void config() {
+		setBaseViewPath("/views");
 		add("/index", IndexController.class);
 		add("/video", VideoController.class);
 		add("/qqLive", QQLiveController.class);

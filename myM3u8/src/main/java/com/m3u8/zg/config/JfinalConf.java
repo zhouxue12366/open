@@ -26,7 +26,6 @@ public class JfinalConf extends JFinalConfig {
 	public void configRoute(Routes me) {
 		// 如果要将控制器超类中的 public 方法映射为 action 配置成 true，一般不用配置
 		me.setMappingSuperClass(true);
-		 me.setBaseViewPath("/views");
 		me.add(new RouteConfig());
 	}
 
