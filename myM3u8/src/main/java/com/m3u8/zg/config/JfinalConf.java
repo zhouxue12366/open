@@ -6,6 +6,7 @@ import com.jfinal.config.Interceptors;
 import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
+import com.jfinal.ext.handler.UrlSkipHandler;
 import com.jfinal.template.Engine;
 
 /**

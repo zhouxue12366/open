@@ -10,6 +10,15 @@ import javax.websocket.OnMessage;
 import javax.websocket.Session;
 import javax.websocket.server.ServerEndpoint;
 
+/**
+ * websocket
+ * @Title MyWebSocket.java
+ * @Description 
+ * @Company: 周大炮工作室
+ * @author zg
+ * @date 2019年10月14日 下午4:58:31
+ * @version V1.0
+ */
 @ServerEndpoint("/myapp.ws")
 public class MyWebSocket {
 	private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
