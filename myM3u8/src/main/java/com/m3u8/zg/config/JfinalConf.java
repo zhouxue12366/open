@@ -7,12 +7,14 @@ import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.ext.handler.UrlSkipHandler;
+import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
 
 /**
  * jfinal配置类
+ * 
  * @Title JfinalConf.java
- * @Description 
+ * @Description
  * @Company: 周大炮工作室
  * @author zg
  * @date 2019年10月12日 下午5:20:11
@@ -22,6 +24,12 @@ public class JfinalConf extends JFinalConfig {
 
 	public void configConstant(Constants me) {
 		me.setDevMode(true);
+
+		// 开启对 jfinal web 项目组件 Controller、Interceptor、Validator 的注入
+		me.setInjectDependency(true);
+
+		// 开启对超类的注入。不开启时可以在超类中通过 Aop.get(...) 进行注入
+		me.setInjectSuperClass(true);
 	}
 
 	public void configRoute(Routes me) {

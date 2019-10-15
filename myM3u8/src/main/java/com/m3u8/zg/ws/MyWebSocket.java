@@ -64,7 +64,11 @@ public class MyWebSocket {
 	@OnClose
 	public void onClose(Session session) {
 		try {
-			session.getBasicRemote().sendText("我要关闭了");
+			if(session.isOpen()){
+				System.out.println("websocket:我要关闭了");
+//				session.getBasicRemote().sendText("我要关闭了");
+				session.close();
+			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
