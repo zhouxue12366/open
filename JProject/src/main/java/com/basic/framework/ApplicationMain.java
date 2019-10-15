@@ -54,10 +54,10 @@ public class ApplicationMain {
 //        .start();
 //    }
 	
-	/**
-	 * 与 jetty-server启动方式,相关小节几乎一样，仅仅是 main 方法中的内容有所不同
-	 * @param args
-	 */
+//	/**
+//	 * 与 jetty-server启动方式,相关小节几乎一样，仅仅是 main 方法中的内容有所不同
+//	 * @param args
+//	 */
 //	public static void main(String[] args) {
 //	    JFinal.start("src/main/webapp", 80, "/", 5);
 //	}
