@@ -105,7 +105,6 @@
 						<goals>
 							<goal>single</goal>
 						</goals>
-
 						<configuration>
 							<!-- 打包生成的文件名 -->
 							<finalName>${project.artifactId}</finalName>
