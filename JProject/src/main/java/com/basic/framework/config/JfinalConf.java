@@ -36,6 +36,8 @@ public class JfinalConf extends JFinalConfig {
 	}
 
 	public void configEngine(Engine me) {
+		me.setBaseTemplatePath("webapp");
+	    me.setToClassPathSourceFactory();
 	}
 
 	public void configPlugin(Plugins me) {
