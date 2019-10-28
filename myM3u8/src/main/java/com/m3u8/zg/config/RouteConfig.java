@@ -4,6 +4,7 @@ import com.jfinal.config.Routes;
 import com.m3u8.zg.controller.IndexController;
 import com.m3u8.zg.controller.QQLiveController;
 import com.m3u8.zg.controller.VideoController;
+import com.m3u8.zg.controller.csgo.EsportsController;
 /**
  * 自定义路由
  * @Title RouteConfig.java
@@ -21,6 +22,7 @@ public class RouteConfig extends Routes{
 		add("/index", IndexController.class);
 		add("/video", VideoController.class);
 		add("/qqLive", QQLiveController.class);
+		add("/esports", EsportsController.class);
 	}
 
 
