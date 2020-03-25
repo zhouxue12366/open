@@ -21,4 +21,8 @@ public class IndexController extends Controller {
 		System.out.println("to app html......");
 		render("/views/app.html");
 	}
+	public void location(){
+		System.out.println("to location html......");
+		render("/views/location.html");
+	}
 }

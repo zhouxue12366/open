@@ -33,8 +33,7 @@ public class ApplicationMain {
 	 * @since 2019年10月14日 下午4:04:53
 	 */
     public static void main(String[] args) {
-    	UndertowServer.create(JfinalConf.class)
-        .configWeb( builder -> {
+    	UndertowServer.create(JfinalConf.class).configWeb( builder -> {
 //            // 配置 Filter
 //            builder.addFilter("myFilter", "com.abc.MyFilter");
 //            builder.addFilterUrlMapping("myFilter", "/*");
