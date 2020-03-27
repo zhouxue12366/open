@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>视频信息</title>
+</head>
+<body>
+	<div style="width: 100%">
+		<img alt="" src="#(imgSrc)" style="width: 200px; height: 250px;">
+		<br/>
+		<p style="padding-left: 50px;">#(mediaName)</p>
+		#for(item :recordList)
+			<a href="#(item.href)" target="_blank" style="padding-left: 10px;">#(item.id)</a>    
+		#end
+	</div>
+</body>
+</html>

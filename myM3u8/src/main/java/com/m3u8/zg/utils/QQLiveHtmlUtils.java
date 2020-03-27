@@ -22,7 +22,7 @@ public class QQLiveHtmlUtils {
 	 */
 	public static Document openHtml(String documentUrl){
 		Document root = DocumentToolkit.getDocument(documentUrl, 1);
-		System.out.println(root);
+//		System.out.println(root);
 		return root;
 	}
 	
