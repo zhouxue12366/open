@@ -65,7 +65,15 @@ public class IndexController extends Controller {
 			Record  r= new Record();
 			r.set("id", text);
 			r.set("href", "https://jx.618g.com/?url=" + href);
-			recordList.add(r);
+			boolean flag = false;
+			for(Record checkR :recordList){
+				if(checkR.get("id").equals(text)){
+					flag = true;
+				}
+			}
+			if(!flag){
+				recordList.add(r);
+			}
 		}
 		setAttr("recordList", recordList);
 		
