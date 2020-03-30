@@ -1,7 +1,6 @@
 package com.m3u8.zg;
 
-import com.jfinal.server.undertow.UndertowServer;
-import com.m3u8.zg.config.JfinalConf;
+import com.jfinal.core.JFinal;
 
 /**
  * 程序启动类,两种启动方式,两种方式的包引入不同,本次使用第一种
@@ -32,34 +31,34 @@ public class ApplicationMain {
 	 * @param args 
 	 * @since 2019年10月14日 下午4:04:53
 	 */
-    public static void main(String[] args) {
-    	UndertowServer.create(JfinalConf.class).configWeb( builder -> {
-//            // 配置 Filter
-//            builder.addFilter("myFilter", "com.abc.MyFilter");
-//            builder.addFilterUrlMapping("myFilter", "/*");
-//            builder.addFilterInitParam("myFilter", "key", "value");
+//    public static void main(String[] args) {
+//    	UndertowServer.create(JfinalConf.class).configWeb( builder -> {
+////            // 配置 Filter
+////            builder.addFilter("myFilter", "com.abc.MyFilter");
+////            builder.addFilterUrlMapping("myFilter", "/*");
+////            builder.addFilterInitParam("myFilter", "key", "value");
+////            
+////            // 配置 Servlet
+////            builder.addServlet("myServlet", "com.abc.MyServlet");
+////            builder.addServletMapping("myServlet", "*.do");
+////            builder.addServletInitParam("myServlet", "key", "value");
+////            
+////            // 配置 Listener
+////            builder.addListener("com.abc.MyListener");
 //            
-//            // 配置 Servlet
-//            builder.addServlet("myServlet", "com.abc.MyServlet");
-//            builder.addServletMapping("myServlet", "*.do");
-//            builder.addServletInitParam("myServlet", "key", "value");
-//            
-//            // 配置 Listener
-//            builder.addListener("com.abc.MyListener");
-            
-            // 配置 WebSocket，MyWebSocket 需使用 ServerEndpoint 注解
-            builder.addWebSocketEndpoint("com.m3u8.zg.ws.MyWebSocket");
-         })
-        .start();
-    }
+//            // 配置 WebSocket，MyWebSocket 需使用 ServerEndpoint 注解
+//            builder.addWebSocketEndpoint("com.m3u8.zg.ws.MyWebSocket");
+//         })
+//        .start();
+//    }
 	
 	/**
 	 * 与 jfinal undertow 相关小节几乎一样，仅仅是 main 方法中的内容有所不同
 	 * @param args
 	 */
-//	public static void main(String[] args) {
-//	    JFinal.start("src/main/webapp", 80, "/", 5);
-//	}
+	public static void main(String[] args) {
+	    JFinal.start("src/main/webapp", 80, "/", 5);
+	}
 	
 
 }

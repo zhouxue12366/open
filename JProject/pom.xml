@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.basic.framework</groupId>
 	<artifactId>JProject</artifactId>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>JProject Maven Webapp</name>
 	<url>http://maven.apache.org</url>
@@ -15,24 +15,30 @@
 		<!-- <scope>test</scope> -->
 		<!-- </dependency> -->
 
-		<dependency>
-			<groupId>com.jfinal</groupId>
-			<artifactId>jfinal-undertow</artifactId>
-			<version>1.9</version>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>com.jfinal</groupId> -->
+		<!-- <artifactId>jfinal-undertow</artifactId> -->
+		<!-- <version>1.9</version> -->
+		<!-- </dependency> -->
 
 		<dependency>
 			<groupId>com.jfinal</groupId>
 			<artifactId>jfinal</artifactId>
 			<version>4.6</version>
 		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>4.0.1</version>
+			<scope>provided</scope>
+		</dependency>
 
 		<!-- 如果需要 WebSocket 支持，再添加一个依赖，不开发 WebSocket 无需理会 -->
-		<dependency>
-			<groupId>io.undertow</groupId>
-			<artifactId>undertow-websockets-jsr</artifactId>
-			<version>2.0.25.Final</version>
-		</dependency>
+		<!-- <dependency> -->
+		<!-- <groupId>io.undertow</groupId> -->
+		<!-- <artifactId>undertow-websockets-jsr</artifactId> -->
+		<!-- <version>2.0.25.Final</version> -->
+		<!-- </dependency> -->
 
 		<!-- 爬虫jar包 -->
 		<dependency>

@@ -1,7 +1,6 @@
 package com.basic.framework;
 
-import com.basic.framework.config.JfinalConf;
-import com.jfinal.server.undertow.UndertowServer;
+import com.jfinal.core.JFinal;
 
 /**
  * 程序启动类,程序启动入口
@@ -21,9 +20,9 @@ public class ApplicationMain {
      *      开发项目时，建议新建一个 App.java 或者 Start.java 这样的专用
      *      启动入口类放置用于启动的 main 方法
      */
-    public static void main(String[] args) {
-        UndertowServer.start(JfinalConf.class, 8080, true);
-    }
+//    public static void main(String[] args) {
+//        UndertowServer.start(JfinalConf.class, 8080, true);
+//    }
     
 //	/**
 //	 * websocket启动法法
@@ -54,11 +53,11 @@ public class ApplicationMain {
 //        .start();
 //    }
 	
-//	/**
-//	 * 与 jetty-server启动方式,相关小节几乎一样，仅仅是 main 方法中的内容有所不同
-//	 * @param args
-//	 */
-//	public static void main(String[] args) {
-//	    JFinal.start("src/main/webapp", 80, "/", 5);
-//	}
+	/**
+	 * 与 jetty-server启动方式,相关小节几乎一样，仅仅是 main 方法中的内容有所不同
+	 * @param args
+	 */
+	public static void main(String[] args) {
+	    JFinal.start("src/main/webapp", 80, "/", 5);
+	}
 }
