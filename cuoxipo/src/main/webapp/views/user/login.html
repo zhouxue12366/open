@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>登录</title>
+<link rel="stylesheet" href="#(ctxPath)/static/layui/css/layui.css">
+
+<script type="text/javascript" src="#(ctxPath)/static/cqts_bue/js/jquery-1.9.0.min.js"></script>
+<script src="#(ctxPath)/static/layer/layer.js"></script>
+
+<script type="text/javascript">
+// "#(ctxPath)/user/login"
+function login(){
+	$.ajax({
+        type: "POST",
+        url:"#(ctxPath)/user/login",
+        data:$('#loginForm').serialize(),// 要提交的表单 
+        success: function(msg) {
+        	alert(msg);
+       	}
+    });
+}
+</script>
+</head>
+<body>
+<p class="layui-input-block">请输入你的VIP账号信息</p>
+<form class="layui-form" method="post" id="loginForm">
+	<div class="layui-form-item">
+		<label class="layui-form-label">输入框</label>
+	    <div class="layui-input-inline">
+	      <input type="text" name="account" placeholder="请输入手机号" required  lay-verify="required" autocomplete="off" class="layui-input">
+	    </div>
+    </div>
+    <div class="layui-form-item">
+    	<label class="layui-form-label">密码框</label>
+	    <div class="layui-input-inline">
+	      <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+	    </div>
+    </div>
+	<div class="layui-form-item">
+	    <div class="layui-input-block">
+	      <button class="layui-btn" type="button" onclick="login()">立即登陆</button>
+	      <button type="button" class="layui-btn layui-btn-primary">注册</button>
+	    </div>
+  </div>
+</form>
+
+</body>
+</html>

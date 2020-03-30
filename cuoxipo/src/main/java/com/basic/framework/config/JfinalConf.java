@@ -1,5 +1,6 @@
 package com.basic.framework.config;
 
+import com.basic.framework.interceptor.LoginInterceptor;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
 import com.jfinal.config.Interceptors;
@@ -46,6 +47,7 @@ public class JfinalConf extends JFinalConfig {
 	}
 
 	public void configInterceptor(Interceptors me) {
+		me.add(new LoginInterceptor());
 	}
 
 	public void configHandler(Handlers me) {
