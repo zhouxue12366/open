@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="/static/js/jquery-3.4.1.js"></script>
+<script type="text/javascript">
+$(function(){
+	load();
+});
+function load() {
+//     var e = txv.cookie.get("oversea_limit");
+    $.ajax({
+        url: "http://vv.video.qq.com/checktime?_t=1&otype=json&vid=m00160wal28",
+        dataType: "jsonp",
+        success: function(o) {
+            console.log(o);
+            $("#load").html(o);
+        },
+        error: function(t, o, n) {
+            !e && i && i()
+        }
+    })
+}
+</script>
+</head>
+<body>
+<div id="load"></div>
+</body>
+</html>
