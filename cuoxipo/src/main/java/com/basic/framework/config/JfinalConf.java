@@ -1,12 +1,12 @@
 package com.basic.framework.config;
 
-import com.basic.framework.controller.index.HelloController;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
 import com.jfinal.config.Interceptors;
 import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
+import com.jfinal.ext.handler.ContextPathHandler;
 import com.jfinal.template.Engine;
 
 /**
@@ -32,12 +32,14 @@ public class JfinalConf extends JFinalConfig {
 	public void configRoute(Routes me) {
 		// 如果要将控制器超类中的 public 方法映射为 action 配置成 true，一般不用配置
 		me.setMappingSuperClass(true);
-		me.add("/hello", HelloController.class);
+		me.add(new RouteConfig());
 	}
 
-	public void configEngine(Engine me) {
-		me.setBaseTemplatePath("webapp");
-	    me.setToClassPathSourceFactory();
+	public void configEngine(Engine engine) {
+		// 支持模板热加载，绝大多数生产环境下也建议配置成 true，除非是极端高性能的场景
+		engine.setDevMode(true);
+		// 配置极速模式，性能提升 13%
+		Engine.setFastMode(true);
 	}
 
 	public void configPlugin(Plugins me) {
@@ -47,5 +49,6 @@ public class JfinalConf extends JFinalConfig {
 	}
 
 	public void configHandler(Handlers me) {
+		me.add(new ContextPathHandler("ctxPath")); 
 	}
 }
