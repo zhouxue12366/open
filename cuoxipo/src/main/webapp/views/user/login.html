@@ -15,8 +15,16 @@ function login(){
         type: "POST",
         url:"#(ctxPath)/user/login",
         data:$('#loginForm').serialize(),// 要提交的表单 
-        success: function(msg) {
-        	alert(msg);
+        success: function(data) {
+//         	console.log(data);
+        	if(data.code == 200){
+        		layer.msg("登录成功",{time:2000}, function(){
+        			window.location.href ="#(ctxPath)/";
+        		});
+        	}else{
+        		layer.msg("登录失败");
+        	}
+        	
        	}
     });
 }
@@ -28,13 +36,13 @@ function login(){
 	<div class="layui-form-item">
 		<label class="layui-form-label">输入框</label>
 	    <div class="layui-input-inline">
-	      <input type="text" name="account" placeholder="请输入手机号" required  lay-verify="required" autocomplete="off" class="layui-input">
+	      <input type="text" value="13677690703" name="account" placeholder="请输入手机号" required  lay-verify="required" autocomplete="off" class="layui-input">
 	    </div>
     </div>
     <div class="layui-form-item">
     	<label class="layui-form-label">密码框</label>
 	    <div class="layui-input-inline">
-	      <input type="password" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
+	      <input type="password" value="111111" name="password" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input">
 	    </div>
     </div>
 	<div class="layui-form-item">

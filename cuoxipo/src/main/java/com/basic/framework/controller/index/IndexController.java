@@ -7,8 +7,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.basic.framework.interceptor.LoginInterceptor;
 import com.basic.framework.utils.DocumentToolkit;
 import com.basic.framework.utils.QQLiveHtmlUtils;
+import com.jfinal.aop.Clear;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Record;
 
@@ -24,6 +26,7 @@ import com.jfinal.plugin.activerecord.Record;
 public class IndexController extends Controller {
 	private static String LINK_1 ="https://jx.618g.com/?url=";
 
+	@Clear(LoginInterceptor.class)
 	public void index() {
 		render("/views/index.html");
 	}

@@ -11,13 +11,32 @@
 <script type="text/javascript" src="#(ctxPath)/static/cqts_bue/js/move-top.js"></script>
 <script type="text/javascript" src="#(ctxPath)/static/cqts_bue/js/easing.js"></script>
 <script type="text/javascript" src="#(ctxPath)/static/cqts_bue/js/jquery.nivo.slider.js"></script>
-<script src="#(ctxPath)/static/layui/layui.js"></script>
+<script src="#(ctxPath)/static/layer/layer.js"></script>
 
 <script type="text/javascript">
 	$(window).load(function() {
 		$('#slider').nivoSlider();
 	});
+	
+	function loginOut(){
+		$.ajax({
+	        type: "POST",
+	        url:"#(ctxPath)/user/loginOut",
+	        success: function(data) {
+//	         	console.log(data);
+	        	if(data.code == 200){
+	        		layer.msg("退出成功",{time:2000}, function(){
+	        			window.location.href ="#(ctxPath)/";
+	        		});
+	        	}else{
+	        		layer.msg("退出失败");
+	        	}
+	        	
+	       	}
+	    });
+	}
 </script>
+
 </head>
 <body>
 	<div class="header">
@@ -25,14 +44,19 @@
 			<div class="wrap">
 				<div class="nav_list">
 					<ul>
-						<li><a href="index.html">Home</a></li>
+						<li><a href="/">Home</a></li>
 						<li><a href="contact.html">Contact</a></li>
 					</ul>
 				</div>
 				<div class="account_desc">
 					<ul>
 						<li><a href="contact.html">Register</a></li>
-						<li><a href="#(ctxPath)/views/user/login.html">Login</a></li>
+						#if(null == session || null == session.loginUserId || "" == sessionloginUserId)
+							<li><a href="#(ctxPath)/user/toLogin">登录</a></li>
+						#else
+							<li><a href="javascript:;" onclick="loginOut()">#(session.loginUserId)-退出登录</a></li>
+						#end
+						
 						<li><a href="#(ctxPath)/preview">Delivery</a></li>
 						<li><a href="#">Checkout</a></li>
 						<li><a href="#">My Account</a></li>
@@ -44,7 +68,7 @@
 		<div class="wrap">
 			<div class="header_top">
 				<div class="logo">
-					<a href="index.html"> <img src="#(ctxPath)/static/cqts_bue/images/zg.png"
+					<a href="/"> <img src="#(ctxPath)/static/cqts_bue/images/zg.png"
 						alt="" style="width: 187px; height: 74px;" /></a>
 				</div>
 				<div class="header_top">

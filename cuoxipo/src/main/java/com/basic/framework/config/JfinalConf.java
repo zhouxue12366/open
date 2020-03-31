@@ -8,6 +8,7 @@ import com.jfinal.config.JFinalConfig;
 import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.ext.handler.ContextPathHandler;
+import com.jfinal.ext.interceptor.SessionInViewInterceptor;
 import com.jfinal.template.Engine;
 
 /**
@@ -48,6 +49,7 @@ public class JfinalConf extends JFinalConfig {
 
 	public void configInterceptor(Interceptors me) {
 		me.add(new LoginInterceptor());
+		me.add(new SessionInViewInterceptor());
 	}
 
 	public void configHandler(Handlers me) {
