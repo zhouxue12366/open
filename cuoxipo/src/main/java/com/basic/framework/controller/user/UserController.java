@@ -130,6 +130,7 @@ public class UserController extends BaseController {
 		if (null != userInfo) {
 			setSessionAttr(Constants.login_User_Id, userInfo.get("id"));
 			setSessionAttr(Constants.login_Account, userInfo.get("account"));
+			setSessionAttr(Constants.login_vip, userInfo.get("vip"));
 			result.setCode(200);
 			result.setMessage("login success");
 			renderJson(result);

@@ -15,4 +15,6 @@ public class Constants {
 	public static String login_User_Id = "loginUserId";
 	/***登陆用户的账号***/
 	public static String login_Account = "loginAccount";
+	/***登陆用户的vip等级***/
+	public static String login_vip = "v_live";
 }

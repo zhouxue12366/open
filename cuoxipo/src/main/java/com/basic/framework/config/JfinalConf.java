@@ -57,7 +57,7 @@ public class JfinalConf extends JFinalConfig {
 		JFinalBeetlRenderFactory rf = new JFinalBeetlRenderFactory();
         rf.config();
         me.setRenderFactory(rf);
-        GroupTemplate gt = rf.groupTemplate;
+//        GroupTemplate gt = rf.groupTemplate;
 	}
 
 	public void configRoute(Routes me) {
@@ -70,7 +70,7 @@ public class JfinalConf extends JFinalConfig {
 //		// 支持模板热加载，绝大多数生产环境下也建议配置成 true，除非是极端高性能的场景
 //		engine.setDevMode(true);
 //		// 配置极速模式，性能提升 13%
-//		Engine.setFastMode(true);
+		Engine.setFastMode(true);
 	}
 
 	public void configPlugin(Plugins me) {

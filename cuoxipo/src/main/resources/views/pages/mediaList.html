@@ -51,14 +51,16 @@ function login(){
 						@}
 						</p>
 						</div>
-						<div style="float: left; margin-top: 20px;">
-						<hr/>
-						<p>全屏新页面播放点这里:
-						@for(item in recordList){
-							<a href="${item.href}" class="layui-btn layui-btn-warm" target="_blank" style="padding-left: 10px; margin-top: 10px;">${item.id}</a>    
+						@if(session.v_live >= 1){
+							<div style="float: left; margin-top: 40px; clear: left;">
+							<p>全屏新页面播放点这里:
+							@for(item in recordList){
+								<a href="${item.href}" class="layui-btn layui-btn-warm" target="_blank" style="padding-left: 10px; margin-top: 10px;">${item.id}</a>    
+							@}
+							</p>
+							</div>
 						@}
-						</p>
-						</div>
+						
 					</div>
 					</div>
 				</div>
