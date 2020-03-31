@@ -22,7 +22,7 @@ public class LoginInterceptor implements Interceptor{
 		inv.invoke();
 		if(StringUtils.isBlank(loginUserId)){
 			System.out.println("没有登录");
-			inv.getController().render("/views/user/login.html");
+			inv.getController().render("/pages/user/login.html");
 		}else{
 			System.out.println("已经登录成功!");
 		}

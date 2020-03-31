@@ -27,7 +27,7 @@ public class UserController extends BaseController {
 
 	@Clear(LoginInterceptor.class)
 	public void toLogin() {
-		render("/views/user/login.html");
+		render("/pages/user/login.html");
 	}
 
 	@Clear(LoginInterceptor.class)

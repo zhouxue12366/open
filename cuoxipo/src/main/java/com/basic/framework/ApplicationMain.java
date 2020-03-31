@@ -54,6 +54,10 @@ public class ApplicationMain {
 //    }
 	
 	/**
+	 *  启动句改成：JFinal.start("src/main/webapp/WEB-INF/views", 80, "/", 5); 静态资源可以访问了。 
+	 *  render的controller访问又出问题了，在调试调试看。
+	 *  原来是：JFinal.start("src/main/webapp", 80, "/", 5); 静态的不行
+	 *  
 	 * 与 jetty-server启动方式,相关小节几乎一样，仅仅是 main 方法中的内容有所不同
 	 * @param args
 	 */

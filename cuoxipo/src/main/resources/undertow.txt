@@ -5,10 +5,10 @@ undertow.port=8080
 undertow.host=localhost
  
 # 绝大部分情况不建议配置 context path
-undertow.contextPath=/
+#undertow.contextPath=/
 
 #jfinal undertow 可以十分方便地从文件系统的目录以及 class path 或 jar 包中加载 web 静态资源
-undertow.resourcePath = src/main/webapp, classpath:static
+#undertow.resourcePath = src/main/webapp, classpath:static
 
 # gzip 压缩开关
 undertow.gzip.enable=true

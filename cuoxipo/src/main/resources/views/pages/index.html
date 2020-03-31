@@ -3,15 +3,15 @@
 <title>欢迎使用撮溪坡视频</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<link href="#(ctxPath)/static/cqts_bue/css/style.css" rel="stylesheet" type="text/css" media="all" />
-<link href="#(ctxPath)/static/cqts_bue/css/slider.css" rel="stylesheet" type="text/css" media="all" />
-<link rel="stylesheet" href="#(ctxPath)/static/layui/css/layui.css">
+<link href="/static/cqts_bue/css/style.css" rel="stylesheet" type="text/css" media="all" />
+<link href="/static/cqts_bue/css/slider.css" rel="stylesheet" type="text/css" media="all" />
+<link rel="stylesheet" href="/static/layui/css/layui.css">
 
-<script type="text/javascript" src="#(ctxPath)/static/cqts_bue/js/jquery-1.9.0.min.js"></script>
-<script type="text/javascript" src="#(ctxPath)/static/cqts_bue/js/move-top.js"></script>
-<script type="text/javascript" src="#(ctxPath)/static/cqts_bue/js/easing.js"></script>
-<script type="text/javascript" src="#(ctxPath)/static/cqts_bue/js/jquery.nivo.slider.js"></script>
-<script src="#(ctxPath)/static/layer/layer.js"></script>
+<script type="text/javascript" src="/static/cqts_bue/js/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="/static/cqts_bue/js/move-top.js"></script>
+<script type="text/javascript" src="/static/cqts_bue/js/easing.js"></script>
+<script type="text/javascript" src="/static/cqts_bue/js/jquery.nivo.slider.js"></script>
+<script type="text/javascript" src="/static/layer/layer.js"></script>
 
 <script type="text/javascript">
 	$(window).load(function() {
@@ -21,12 +21,12 @@
 	function loginOut(){
 		$.ajax({
 	        type: "POST",
-	        url:"#(ctxPath)/user/loginOut",
+	        url:"/user/loginOut",
 	        success: function(data) {
 //	         	console.log(data);
 	        	if(data.code == 200){
 	        		layer.msg("退出成功",{time:2000}, function(){
-	        			window.location.href ="#(ctxPath)/";
+	        			window.location.href ="/";
 	        		});
 	        	}else{
 	        		layer.msg("退出失败");
@@ -51,13 +51,13 @@
 				<div class="account_desc">
 					<ul>
 						<li><a href="contact.html">Register</a></li>
-						#if(null == session || null == session.loginUserId || "" == sessionloginUserId)
-							<li><a href="#(ctxPath)/user/toLogin">登录</a></li>
-						#else
-							<li><a href="javascript:;" onclick="loginOut()">#(session.loginUserId)-退出登录</a></li>
-						#end
+						@if(null == session || null == session.loginUserId || "" == session.loginUserId){
+							<li><a href="/user/toLogin">登录</a></li>
+						@}else{
+							<li><a href="javascript:;" onclick="loginOut()">${session.loginUserId}-退出登录</a></li>
+						@}
 						
-						<li><a href="#(ctxPath)/preview">Delivery</a></li>
+						<li><a href="/preview">Delivery</a></li>
 						<li><a href="#">Checkout</a></li>
 						<li><a href="#">My Account</a></li>
 					</ul>
@@ -68,12 +68,12 @@
 		<div class="wrap">
 			<div class="header_top">
 				<div class="logo">
-					<a href="/"> <img src="#(ctxPath)/static/cqts_bue/images/zg.png"
+					<a href="/"> <img src="/static/cqts_bue/images/zg.png"
 						alt="" style="width: 187px; height: 74px;" /></a>
 				</div>
 				<div class="header_top">
 					<div class="search_box" style="width: 380px;">
-						<form action="#(ctxPath)/search">
+						<form action="/search">
 							<input type="text" name="mediaName" value="" placeholder="请输入您要观看的视频名称"> 
 							<input type="hidden" name="platform" id="platform" value="1" /> 
 							<input type="submit" value="">
@@ -121,11 +121,11 @@
 					<div class="slider">
 						<div class="slider-wrapper theme-default">
 							<div id="slider_" class="nivoSlider_">
-								<img src="#(ctxPath)/static/cqts_bue/images/1.jpg" alt="" />
-								<!-- 								<img src="#(ctxPath)/static/cqts_bue/images/2.jpg" data-thumb="#(ctxPath)/static/cqts_bue/images/2.jpg" alt="" />  -->
-								<!-- 								<img src="#(ctxPath)/static/cqts_bue/images/3.jpg" data-thumb="#(ctxPath)/static/cqts_bue/images/3.jpg" alt="" />  -->
-								<!-- 								<img src="#(ctxPath)/static/cqts_bue/images/4.jpg" data-thumb="#(ctxPath)/static/cqts_bue/images/4.jpg" alt="" />  -->
-								<!-- 								<img src="#(ctxPath)/static/cqts_bue/images/5.jpg" data-thumb="#(ctxPath)/static/cqts_bue/images/5.jpg" alt="" /> -->
+								<img src="/static/cqts_bue/images/1.jpg" alt="" />
+								<!-- 								<img src="/static/cqts_bue/images/2.jpg" data-thumb="/static/cqts_bue/images/2.jpg" alt="" />  -->
+								<!-- 								<img src="/static/cqts_bue/images/3.jpg" data-thumb="/static/cqts_bue/images/3.jpg" alt="" />  -->
+								<!-- 								<img src="/static/cqts_bue/images/4.jpg" data-thumb="/static/cqts_bue/images/4.jpg" alt="" />  -->
+								<!-- 								<img src="/static/cqts_bue/images/5.jpg" data-thumb="/static/cqts_bue/images/5.jpg" alt="" /> -->
 							</div>
 						</div>
 					</div>
@@ -149,10 +149,10 @@
 				</div>
 				<div class="section group">
 					<div class="grid_1_of_5 images_1_of_5">
-						<a href="#(ctxPath)/preview"><img
-							src="#(ctxPath)/static/cqts_bue/images/end-game.jpg" alt="" /></a>
+						<a href="/preview"><img
+							src="/static/cqts_bue/images/end-game.jpg" alt="" /></a>
 						<h2>
-							<a href="#(ctxPath)/preview">End Game</a>
+							<a href="/preview">End Game</a>
 						</h2>
 						<div class="price-details">
 							<div class="price-number">
@@ -162,17 +162,17 @@
 							</div>
 							<div class="add-cart">
 								<h4>
-									<a href="#(ctxPath)/preview">Add to Cart</a>
+									<a href="/preview">Add to Cart</a>
 								</h4>
 							</div>
 							<div class="clear"></div>
 						</div>
 					</div>
 					<div class="grid_1_of_5 images_1_of_5">
-						<a href="#(ctxPath)/preview"><img
-							src="#(ctxPath)/static/cqts_bue/images/Sorority_Wars.jpg" alt="" /></a>
+						<a href="/preview"><img
+							src="/static/cqts_bue/images/Sorority_Wars.jpg" alt="" /></a>
 						<h2>
-							<a href="#(ctxPath)/preview">Sorority Wars</a>
+							<a href="/preview">Sorority Wars</a>
 						</h2>
 						<div class="price-details">
 							<div class="price-number">
@@ -182,7 +182,7 @@
 							</div>
 							<div class="add-cart">
 								<h4>
-									<a href="#(ctxPath)/preview">Add to Cart</a>
+									<a href="/preview">Add to Cart</a>
 								</h4>
 							</div>
 							<div class="clear"></div>
@@ -190,11 +190,11 @@
 
 					</div>
 					<div class="grid_1_of_5 images_1_of_5">
-						<a href="#(ctxPath)/preview"><img
-							src="#(ctxPath)/static/cqts_bue/images/New-Moon-The-Score-cover-twilight.jpg"
+						<a href="/preview"><img
+							src="/static/cqts_bue/images/New-Moon-The-Score-cover-twilight.jpg"
 							alt="" /></a>
 						<h2>
-							<a href="#(ctxPath)/preview">Twilight New Moon</a>
+							<a href="/preview">Twilight New Moon</a>
 						</h2>
 						<div class="price-details">
 							<div class="price-number">
@@ -204,7 +204,7 @@
 							</div>
 							<div class="add-cart">
 								<h4>
-									<a href="#(ctxPath)/preview">Add to Cart</a>
+									<a href="/preview">Add to Cart</a>
 								</h4>
 							</div>
 							<div class="clear"></div>
@@ -212,10 +212,10 @@
 
 					</div>
 					<div class="grid_1_of_5 images_1_of_5">
-						<a href="#(ctxPath)/preview"><img
-							src="#(ctxPath)/static/cqts_bue/images/avatar_movie.jpg" alt="" /></a>
+						<a href="/preview"><img
+							src="/static/cqts_bue/images/avatar_movie.jpg" alt="" /></a>
 						<h2>
-							<a href="#(ctxPath)/preview">Avatar</a>
+							<a href="/preview">Avatar</a>
 						</h2>
 						<div class="price-details">
 							<div class="price-number">
@@ -225,17 +225,17 @@
 							</div>
 							<div class="add-cart">
 								<h4>
-									<a href="#(ctxPath)/preview">Add to Cart</a>
+									<a href="/preview">Add to Cart</a>
 								</h4>
 							</div>
 							<div class="clear"></div>
 						</div>
 					</div>
 					<div class="grid_1_of_5 images_1_of_5">
-						<a href="#(ctxPath)/preview"><img
-							src="#(ctxPath)/static/cqts_bue/images/black-swan.jpg" alt="" /></a>
+						<a href="/preview"><img
+							src="/static/cqts_bue/images/black-swan.jpg" alt="" /></a>
 						<h2>
-							<a href="#(ctxPath)/preview">Black Swan</a>
+							<a href="/preview">Black Swan</a>
 						</h2>
 						<div class="price-details">
 							<div class="price-number">
@@ -245,7 +245,7 @@
 							</div>
 							<div class="add-cart">
 								<h4>
-									<a href="#(ctxPath)/preview">Add to Cart</a>
+									<a href="/preview">Add to Cart</a>
 								</h4>
 							</div>
 							<div class="clear"></div>
@@ -259,10 +259,10 @@
 				</div>
 				<div class="section group">
 					<div class="grid_1_of_5 images_1_of_5">
-						<a href="#(ctxPath)/preview"><img
-							src="#(ctxPath)/static/cqts_bue/images/beauty_and_the_beast.jpg" alt="" /></a>
+						<a href="/preview"><img
+							src="/static/cqts_bue/images/beauty_and_the_beast.jpg" alt="" /></a>
 						<h2>
-							<a href="#(ctxPath)/preview">Beauty and the beast</a>
+							<a href="/preview">Beauty and the beast</a>
 						</h2>
 						<div class="price-details">
 							<div class="price-number">
@@ -272,7 +272,7 @@
 							</div>
 							<div class="add-cart">
 								<h4>
-									<a href="#(ctxPath)/preview">Add to Cart</a>
+									<a href="/preview">Add to Cart</a>
 								</h4>
 							</div>
 							<div class="clear"></div>
@@ -280,10 +280,10 @@
 
 					</div>
 					<div class="grid_1_of_5 images_1_of_5">
-						<a href="#(ctxPath)/preview"><img
-							src="#(ctxPath)/static/cqts_bue/images/Eclipse.jpg" alt="" /></a>
+						<a href="/preview"><img
+							src="/static/cqts_bue/images/Eclipse.jpg" alt="" /></a>
 						<h2>
-							<a href="#(ctxPath)/preview">Eclipse</a>
+							<a href="/preview">Eclipse</a>
 						</h2>
 						<div class="price-details">
 							<div class="price-number">
@@ -293,7 +293,7 @@
 							</div>
 							<div class="add-cart">
 								<h4>
-									<a href="#(ctxPath)/preview">Add to Cart</a>
+									<a href="/preview">Add to Cart</a>
 								</h4>
 							</div>
 							<div class="clear"></div>
@@ -301,10 +301,10 @@
 
 					</div>
 					<div class="grid_1_of_5 images_1_of_5">
-						<a href="#(ctxPath)/preview"><img
-							src="#(ctxPath)/static/cqts_bue/images/Coraline.jpg" alt="" /></a>
+						<a href="/preview"><img
+							src="/static/cqts_bue/images/Coraline.jpg" alt="" /></a>
 						<h2>
-							<a href="#(ctxPath)/preview">Coraline</a>
+							<a href="/preview">Coraline</a>
 						</h2>
 						<div class="price-details">
 							<div class="price-number">
@@ -314,7 +314,7 @@
 							</div>
 							<div class="add-cart">
 								<h4>
-									<a href="#(ctxPath)/preview">Add to Cart</a>
+									<a href="/preview">Add to Cart</a>
 								</h4>
 							</div>
 							<div class="clear"></div>
@@ -322,10 +322,10 @@
 
 					</div>
 					<div class="grid_1_of_5 images_1_of_5">
-						<a href="#(ctxPath)/preview"><img
-							src="#(ctxPath)/static/cqts_bue/images/Unstoppable.jpg" alt="" /></a>
+						<a href="/preview"><img
+							src="/static/cqts_bue/images/Unstoppable.jpg" alt="" /></a>
 						<h2>
-							<a href="#(ctxPath)/preview">Unstoppable</a>
+							<a href="/preview">Unstoppable</a>
 						</h2>
 						<div class="price-details">
 							<div class="price-number">
@@ -335,17 +335,17 @@
 							</div>
 							<div class="add-cart">
 								<h4>
-									<a href="#(ctxPath)/preview">Add to Cart</a>
+									<a href="/preview">Add to Cart</a>
 								</h4>
 							</div>
 							<div class="clear"></div>
 						</div>
 					</div>
 					<div class="grid_1_of_5 images_1_of_5">
-						<a href="#(ctxPath)/preview"><img
-							src="#(ctxPath)/static/cqts_bue/images/Priest.jpg" alt="" /></a>
+						<a href="/preview"><img
+							src="/static/cqts_bue/images/Priest.jpg" alt="" /></a>
 						<h2>
-							<a href="#(ctxPath)/preview">Priest 3D</a>
+							<a href="/preview">Priest 3D</a>
 						</h2>
 						<div class="price-details">
 							<div class="price-number">
@@ -355,7 +355,7 @@
 							</div>
 							<div class="add-cart">
 								<h4>
-									<a href="#(ctxPath)/preview">Add to Cart</a>
+									<a href="/preview">Add to Cart</a>
 								</h4>
 							</div>
 							<div class="clear"></div>
@@ -408,13 +408,13 @@
 						<h4>Follow Us</h4>
 						<ul>
 							<li><a href="#" target="_blank"><img
-									src="#(ctxPath)/static/cqts_bue/images/facebook.png" alt="" /></a></li>
+									src="/static/cqts_bue/images/facebook.png" alt="" /></a></li>
 							<li><a href="#" target="_blank"><img
-									src="#(ctxPath)/static/cqts_bue/images/twitter.png" alt="" /></a></li>
+									src="/static/cqts_bue/images/twitter.png" alt="" /></a></li>
 							<li><a href="#" target="_blank"><img
-									src="#(ctxPath)/static/cqts_bue/images/skype.png" alt="" /> </a></li>
+									src="/static/cqts_bue/images/skype.png" alt="" /> </a></li>
 							<li><a href="#" target="_blank"> <img
-									src="#(ctxPath)/static/cqts_bue/images/linkedin.png" alt="" /></a></li>
+									src="/static/cqts_bue/images/linkedin.png" alt="" /></a></li>
 							<div class="clear"></div>
 						</ul>
 					</div>

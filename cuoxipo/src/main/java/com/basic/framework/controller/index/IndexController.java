@@ -28,21 +28,21 @@ public class IndexController extends Controller {
 
 	@Clear(LoginInterceptor.class)
 	public void index() {
-		render("/views/index.html");
+		render("/pages/index.html");
 	}
 
 	public void app() {
 		System.out.println("to app html......");
-		render("/views/app.html");
+		render("/pages/app.html");
 	}
 	public void preview() {
 		System.out.println("to preview html......");
-		render("/views/preview.html");
+		render("/pages/preview.html");
 	}
 
 	public void location() {
 		System.out.println("to location html......");
-		render("/views/location.html");
+		render("/pages/location.html");
 	}
 
 	public void search() {
@@ -70,7 +70,7 @@ public class IndexController extends Controller {
 		}
 		
 		setAttr("mediaName", get("mediaName"));
-		render("/views/mediaList.html");
+		render("/pages/mediaList.html");
 	}
 
 	/**

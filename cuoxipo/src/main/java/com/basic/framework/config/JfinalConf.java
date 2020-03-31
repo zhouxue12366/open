@@ -1,5 +1,8 @@
 package com.basic.framework.config;
 
+import org.beetl.core.GroupTemplate;
+import org.beetl.ext.jfinal.JFinalBeetlRenderFactory;
+
 import com.basic.framework.interceptor.LoginInterceptor;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
@@ -9,6 +12,7 @@ import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.ext.handler.ContextPathHandler;
 import com.jfinal.ext.interceptor.SessionInViewInterceptor;
+import com.jfinal.render.ViewType;
 import com.jfinal.template.Engine;
 
 /**
@@ -29,6 +33,24 @@ public class JfinalConf extends JFinalConfig {
 		me.setInjectDependency(true);
 		// 开启对超类的注入。不开启时可以在超类中通过 Aop.get(...) 进行注入
 		me.setInjectSuperClass(true);
+		
+		//配置beetl模板
+		this.beetlConfig(me);
+	}
+	
+	/**
+	 * 配置beetl模板
+	 * @Title beetlConfig
+	 * @Description  
+	 * @param me 
+	 * @since 2020年3月31日 上午11:20:45
+	 */
+	private void beetlConfig(Constants me){
+		//配置beetl模板
+		JFinalBeetlRenderFactory rf = new JFinalBeetlRenderFactory();
+        rf.config();
+        me.setRenderFactory(rf);
+        GroupTemplate gt = rf.groupTemplate;
 	}
 
 	public void configRoute(Routes me) {
@@ -38,10 +60,10 @@ public class JfinalConf extends JFinalConfig {
 	}
 
 	public void configEngine(Engine engine) {
-		// 支持模板热加载，绝大多数生产环境下也建议配置成 true，除非是极端高性能的场景
-		engine.setDevMode(true);
-		// 配置极速模式，性能提升 13%
-		Engine.setFastMode(true);
+//		// 支持模板热加载，绝大多数生产环境下也建议配置成 true，除非是极端高性能的场景
+//		engine.setDevMode(true);
+//		// 配置极速模式，性能提升 13%
+//		Engine.setFastMode(true);
 	}
 
 	public void configPlugin(Plugins me) {

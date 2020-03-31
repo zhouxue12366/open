@@ -17,7 +17,6 @@ public class RouteConfig extends Routes{
 
 	@Override
 	public void config() {
-		setBaseViewPath("views");
 		add("/", IndexController.class,"index");
 		add("/hello", HelloController.class);
 		add("/index", IndexController.class);
