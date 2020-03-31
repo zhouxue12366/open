@@ -1,7 +1,6 @@
 package com.basic.framework.interceptor;
 
-import org.apache.commons.lang3.StringUtils;
-
+import com.basic.framework.utils.Constants;
 import com.jfinal.aop.Interceptor;
 import com.jfinal.aop.Invocation;
 
@@ -18,9 +17,9 @@ public class LoginInterceptor implements Interceptor{
 
 	@Override
 	public void intercept(Invocation inv) {
-		String loginUserId = inv.getController().getSessionAttr("loginUserId");
+		Integer loginUserId = inv.getController().getSessionAttr(Constants.login_User_Id);
 		inv.invoke();
-		if(StringUtils.isBlank(loginUserId)){
+		if(null == loginUserId || loginUserId.intValue() == 0){
 			System.out.println("没有登录");
 			inv.getController().render("/pages/user/login.html");
 		}else{

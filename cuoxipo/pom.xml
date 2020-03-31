@@ -15,16 +15,10 @@
 		<!-- <scope>test</scope> -->
 		<!-- </dependency> -->
 
-		<!-- <dependency> -->
-		<!-- <groupId>com.jfinal</groupId> -->
-		<!-- <artifactId>jfinal-undertow</artifactId> -->
-		<!-- <version>1.9</version> -->
-		<!-- </dependency> -->
-
 		<dependency>
 			<groupId>com.jfinal</groupId>
 			<artifactId>jfinal</artifactId>
-			<version>4.6</version>
+			<version>4.8</version>
 		</dependency>
 		<dependency>
 			<groupId>com.jfinal</groupId>
@@ -89,16 +83,44 @@
 			<version>2.10.0</version>
 		</dependency>
 
+		<!--beetl模板 -->
 		<dependency>
 			<groupId>com.ibeetl</groupId>
 			<artifactId>beetl</artifactId>
 			<version>3.0.11.RELEASE</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.ibeetl</groupId>
+					<artifactId>beetlsql</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		<dependency>
 			<groupId>com.ibeetl</groupId>
 			<artifactId>jfinal4-beetl-integration</artifactId>
 			<version>1.0</version>
 		</dependency>
+
+		<!-- mysql 驱动 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.44</version>
+		</dependency>
+		<!-- druid 数据源连接池 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.0.29</version>
+		</dependency>
+
+		<!-- cos 文件上传 -->
+		<dependency>
+			<groupId>com.jfinal</groupId>
+			<artifactId>cos</artifactId>
+			<version>2019.8</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<finalName>JProject</finalName>

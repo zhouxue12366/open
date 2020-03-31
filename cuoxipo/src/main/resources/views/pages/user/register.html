@@ -6,19 +6,19 @@
 
 <script type="text/javascript">
 // "/user/login"
-function login(){
+function register(){
 	$.ajax({
         type: "POST",
-        url:"/user/login",
-        data:$('#loginForm').serialize(),// 要提交的表单 
+        url:"/user/register",
+        data:$('#registerForm').serialize(),// 要提交的表单 
         success: function(data) {
 //         	console.log(data);
         	if(data.code == 200){
-        		layer.msg("登录成功",{time:2000}, function(){
+        		layer.msg("注册成功",{time:2000}, function(){
         			window.location.href ="/";
         		});
         	}else{
-        		layer.msg("登录失败");
+        		layer.msg(data.message);
         	}
         	
        	}
@@ -39,12 +39,12 @@ function login(){
 				<div class="wrap">
 					<div class="content">
 						<!------------End Header ------------>
-						<p class="layui-input-block">请输入你的登陆信息</p>
-						<form class="layui-form" method="post" id="loginForm">
+						<p class="layui-input-block">请输入你的注册信息</p>
+						<form class="layui-form" method="post" id="registerForm">
 							<div class="layui-input-inline">
 								<label class="layui-form-label">账号:</label>
 							    <div class="layui-input-inline">
-							      <input type="text" value="13677690703" name="account" placeholder="请输入手机号" required  lay-verify="required" autocomplete="off" class="layui-input">
+							      <input type="text"  name="account" placeholder="请输入手机号注册" required  lay-verify="required" autocomplete="off" class="layui-input">
 							    </div>
 						    </div>
 						    <br/>
@@ -57,10 +57,17 @@ function login(){
 						    </div>
 						    <br/>
 						    <br/>
+						    <div class="layui-input-inline">
+						    	<label class="layui-form-label">确认密码:</label>
+							    <div class="layui-input-inline">
+							      <input type="password" name="repassword" required lay-verify="required" placeholder="请输入确认密码" autocomplete="off" class="layui-input">
+							    </div>
+						    </div>
+						    <br/>
+						    <br/>
 							<div class="layui-form-item">
 							    <div class="layui-input-block">
-							      <button class="layui-btn" type="button" onclick="login()">立即登陆</button>
-							      <a href="/user/toRegister"  class="layui-btn layui-btn-primary" >注册</a>
+							      <button class="layui-btn" type="button" onclick="register()">立即注册</button>
 							    </div>
 						  </div>
 						</form>

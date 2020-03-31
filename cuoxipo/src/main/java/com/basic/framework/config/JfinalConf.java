@@ -12,7 +12,9 @@ import com.jfinal.config.Plugins;
 import com.jfinal.config.Routes;
 import com.jfinal.ext.handler.ContextPathHandler;
 import com.jfinal.ext.interceptor.SessionInViewInterceptor;
-import com.jfinal.render.ViewType;
+import com.jfinal.kit.PropKit;
+import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
+import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.template.Engine;
 
 /**
@@ -28,6 +30,7 @@ import com.jfinal.template.Engine;
 public class JfinalConf extends JFinalConfig {
 
 	public void configConstant(Constants me) {
+		PropKit.use("config.txt");
 		me.setDevMode(true);
 		// 开启对 jfinal web 项目组件 Controller、Interceptor、Validator 的注入
 		me.setInjectDependency(true);
@@ -36,6 +39,10 @@ public class JfinalConf extends JFinalConfig {
 		
 		//配置beetl模板
 		this.beetlConfig(me);
+		
+		// 配置 404、500 页面
+	    me.setError404View("/comm/404.html");
+	    me.setError500View("/comm/500.html"); 
 	}
 	
 	/**
@@ -67,6 +74,12 @@ public class JfinalConf extends JFinalConfig {
 	}
 
 	public void configPlugin(Plugins me) {
+		//配置数据库连接
+		DruidPlugin dp = new DruidPlugin(PropKit.get("url"),PropKit.get("userName"), PropKit.get("passwrod"));
+	    me.add(dp);
+	    //配置Record插件
+	    ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
+	    me.add(arp);
 	}
 
 	public void configInterceptor(Interceptors me) {

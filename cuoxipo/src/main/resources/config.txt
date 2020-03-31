@@ -1,0 +1,4 @@
+url = jdbc:mysql://localhost/cuoxipo
+userName = root
+passwrod = root
+port = 3306
