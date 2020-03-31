@@ -151,7 +151,7 @@ public class IndexController extends Controller {
 		setAttr("imgSrc", https + imgSrc);
 		
 		List<Record> recordList = new ArrayList<Record>();
-		Elements albumList = root.select(".album-list");
+		Elements albumList = root.select(".result-bottom").select(".album-list");
 		if(null != albumList && albumList.size() >0){
 			Elements albumLinkList = albumList.first().select(".album-link");
 			for (Element album : albumLinkList) {
@@ -160,7 +160,7 @@ public class IndexController extends Controller {
 				
 				Record  r= new Record();
 				r.set("id", text);
-				r.set("href", LINK_1 + href);
+				r.set("href", LINK_1 + https + href);
 				boolean flag = false;
 				for(Record checkR :recordList){
 					if(checkR.get("id").equals(text)){
@@ -172,7 +172,6 @@ public class IndexController extends Controller {
 				}
 			}
 		}else{
-			
 			Elements playList = root.select(".result-bottom-pos");
 			if(null != playList && playList.size() > 0){
 				Element btnPrimary = playList.first().getElementsByTag("a").first();

@@ -28,26 +28,4 @@
 					<div class="clear"></div>
 				</div>
 				<div class="clear"></div>
-			</div><script type="text/javascript">
-				// "/user/login"
-				function login() {
-					$.ajax({
-						type : "POST",
-						url : "/user/login",
-						data : $('#loginForm').serialize(),// 要提交的表单 
-						success : function(data) {
-							//         	console.log(data);
-							if (data.code == 200) {
-								layer.msg("登录成功", {
-									time : 2000
-								}, function() {
-									window.location.href = "/";
-								});
-							} else {
-								layer.msg("登录失败");
-							}
-
-						}
-					});
-				}
-			</script>
+			</div>

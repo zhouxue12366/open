@@ -2,31 +2,6 @@
 <head>
 <title>欢迎使用撮溪坡视频</title>
 @include("/comm/head.html"){}
-
-<script type="text/javascript">
-	$(window).load(function() {
-		$('#slider').nivoSlider();
-	});
-	
-	function loginOut(){
-		$.ajax({
-	        type: "POST",
-	        url:"/user/loginOut",
-	        success: function(data) {
-//	         	console.log(data);
-	        	if(data.code == 200){
-	        		layer.msg("退出成功",{time:2000}, function(){
-	        			window.location.href ="/";
-	        		});
-	        	}else{
-	        		layer.msg("退出失败");
-	        	}
-	        	
-	       	}
-	    });
-	}
-</script>
-
 </head>
 <body>
 	<div class="header">
@@ -304,48 +279,9 @@
 		</div>
 	</div>
 	@include("/comm/footer.html"){}
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$().UItoTop({
-				easingType : 'easeOutQuart'
-			});
-
-		});
-	</script>
+	
 	<a href="#" id="toTop"><span id="toTopHover"> </span></a>
 
-	<script type="text/javascript">
-		function DropDown(el) {
-			this.dd = el;
-			this.initEvents();
-		}
-		DropDown.prototype = {
-			initEvents : function() {
-				var obj = this;
-
-				obj.dd.on('click', function(event) {
-					$(this).toggleClass('active');
-					event.stopPropagation();
-				});
-			}
-		}
-
-		$(function() {
-
-			var dd = new DropDown($('#dd'));
-
-			$(document).click(function() {
-				// all dropdowns
-				$('.wrapper-dropdown-2').removeClass('active');
-			});
-			$(".dropdown li").click(function() {
-// 				alert($(this).attr("data-id"));
-				$("#platform").val($(this).attr("data-id"));
-				$("#platformShow").html($(this).text());
-			});
-
-		});
-	</script>
 </body>
 </html>
 

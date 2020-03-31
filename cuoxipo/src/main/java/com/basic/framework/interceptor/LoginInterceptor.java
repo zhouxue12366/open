@@ -21,7 +21,7 @@ public class LoginInterceptor implements Interceptor{
 		inv.invoke();
 		if(null == loginUserId || loginUserId.intValue() == 0){
 			System.out.println("没有登录");
-			inv.getController().render("/pages/user/login.html");
+			inv.getController().render("/user/login.html");
 		}else{
 			System.out.println("已经登录成功!");
 		}
