@@ -126,7 +126,16 @@ public class UserController extends BaseController {
 		String password = get("password");
 		ResultMessage result = new ResultMessage();
 		password = MD5.sign(password, MD5.KEY, MD5.CHARSET);
-		Record userInfo = Db.findFirst("select * from user_info where account = ? and password = ?", account ,password);
+//		Record userInfo = Db.findFirst("select * from user_info where account = ? and password = ?", account ,password);
+		//测试用下面的,不跑数据库
+		Record userInfo = null;
+		if("13677690703".equals(account) || "15223461428".equals(account)){
+			userInfo = new Record();
+			userInfo.set("id", 1);
+			userInfo.set("account", account);
+			userInfo.set("vip", 12);
+		}
+		
 		if (null != userInfo) {
 			setSessionAttr(Constants.login_User_Id, userInfo.get("id"));
 			setSessionAttr(Constants.login_Account, userInfo.get("account"));
@@ -157,4 +166,42 @@ public class UserController extends BaseController {
 		renderJson(result);
 	}
 
+	@Clear(LoginInterceptor.class)
+	public void saveLocation(){
+		String location = get("location");
+		String locationHtml = get("locationHtml");
+		Record record = new Record();
+		record.set("location", location);
+		record.set("location_html", locationHtml);
+		record.set("create_time", new Date());
+		boolean saveResult = Db.save("user_location", record);
+		ResultMessage result = new ResultMessage();
+		result.setCode(500);
+		result.setMessage("save fial");
+		if(saveResult){
+			result.setCode(200);
+			result.setMessage("save success");
+		}
+		renderJson(result);
+	}
+	
+	/**
+	 * 查询是否有新的定位记录
+	 * @Title refreshLocation
+	 * @Description   
+	 * @since 2020年4月1日 下午5:47:29
+	 */
+	@Clear(LoginInterceptor.class)
+	public void refreshLocation(){
+		Integer id = getInt("id");
+		Record record = Db.findFirst("select * from user_location where id = ?",id+1);
+		ResultMessage result = new ResultMessage();
+		if(null == record){
+			result.setCode(500);
+		}else{
+			result.setCode(200);
+		}
+		renderJson(result);
+	}
+	
 }

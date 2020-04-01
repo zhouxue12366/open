@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+    <title>默认点标记</title>
+    <link rel="stylesheet" href="https://a.amap.com/jsapi_demos/static/demo-center/css/demo-center.css"/>
+    <style>
+        html, body, #container {
+            height: 100%;
+            width: 100%;
+        }
+        .amap-icon img,
+        .amap-marker-content img{
+            width: 25px;
+            height: 34px;
+        }
+
+        .marker {
+            position: absolute;
+            top: -20px;
+            right: -118px;
+            color: #fff;
+            padding: 4px 10px;
+            box-shadow: 1px 1px 1px rgba(10, 10, 10, .2);
+            white-space: nowrap;
+            font-size: 12px;
+            font-family: "";
+            background-color: #25A5F7;
+            border-radius: 3px;
+        }
+    </style>
+    @include("/comm/head.html"){}
+    
+</head>
+<body>
+<div id="container"></div>
+<script type="text/javascript"  src="https://webapi.amap.com/maps?v=1.4.15&key=166c25a0a5761bd92ee5e607e995b4e2"></script>
+<script type="text/javascript">
+var xyCenter =${xy};
+    var marker, map = new AMap.Map("container", {
+        resizeEnable: true,
+        center: xyCenter,
+        zoom: 13
+    });
+
+    // 实例化点标记
+    function addMarker() {
+        marker = new AMap.Marker({
+            icon: "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-red.png",
+            position: xyCenter,
+            offset: new AMap.Pixel(-13, -30)
+        });
+        
+        // 自定义点标记内容
+        var markerContent = document.createElement("div");
+        // 点标记中的图标
+        var markerImg = document.createElement("img");
+        markerImg.className = "markerlnglat";
+        markerImg.src = "//a.amap.com/jsapi_demos/static/demo-center/icons/poi-marker-red.png";
+        markerContent.appendChild(markerImg);
+
+        // 点标记中的文本
+        var markerSpan = document.createElement("span");
+        markerSpan.className = 'marker';
+        markerSpan.innerHTML = "我在红色标记的这里";
+        markerContent.appendChild(markerSpan);
+
+        marker.setContent(markerContent); //更新点标记内容
+        marker.setPosition(xyCenter); //更新点标记位置
+        marker.setMap(map);
+    }
+    addMarker();
+    
+    //如果有新的定位信息就刷新
+    function refreshLocation(){ 
+    	var id = "${record.id}";
+    	 $.get("/user/refreshLocation?id="+id,function(data,status){
+   	        if(data.code == 200){
+   	        	window.location.reload(); 
+   	        }else{
+   	        	console.log("没有最新数据,不刷新!");
+   	        }
+   	    });
+    	
+   	} 
+    
+   	//30秒重复执行某个方法 
+   	var t1 = window.setInterval(refreshLocation, 30 * 1000); 
+</script>
+</body>
+</html>
