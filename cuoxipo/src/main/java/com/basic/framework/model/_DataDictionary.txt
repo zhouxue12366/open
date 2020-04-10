@@ -1,0 +1,25 @@
+Table: user_info
+---------------+--------------+------+-----+---------+---------
+ Field         | Type         | Null | Key | Default | Remarks 
+---------------+--------------+------+-----+---------+---------
+ id            | INT(10)      | NO   | PRI |         | 主键      
+ account       | VARCHAR(50)  | YES  |     |         | 账号      
+ phone         | VARCHAR(20)  | YES  |     |         | 电话号码    
+ nick_name     | VARCHAR(50)  | YES  |     |         | 昵称      
+ password      | VARCHAR(50)  | YES  |     |         | 密码      
+ vip           | INT(10)      | YES  |     |         | vip权限等级(数字越大,等级权限越高)
+ status        | INT(10)      | YES  |     |         | 状态(0:正常,1:禁用,2:删除)
+ register_time | DATETIME(19) | YES  |     |         | 注册时间    
+ create_time   | DATETIME(19) | YES  |     |         | 创建时间    
+---------------+--------------+------+-----+---------+---------
+
+Table: user_location
+---------------+----------------------+------+-----+---------+---------
+ Field         | Type                 | Null | Key | Default | Remarks 
+---------------+----------------------+------+-----+---------+---------
+ id            | INT(10)              | NO   | PRI |         | 主键      
+ location      | LONGTEXT(2147483647) | YES  |     |         | 定位获取的信息(JSON)
+ location_html | LONGTEXT(2147483647) | YES  |     |         | html地图信息
+ create_time   | DATETIME(19)         | YES  |     |         | 创建时间    
+---------------+----------------------+------+-----+---------+---------
+

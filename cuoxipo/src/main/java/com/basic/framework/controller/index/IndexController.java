@@ -3,6 +3,7 @@ package com.basic.framework.controller.index;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
@@ -26,6 +27,7 @@ import com.jfinal.plugin.activerecord.Record;
  * @version V1.0
  */
 public class IndexController extends Controller {
+	private Logger log = Logger.getLogger(IndexController.class);
 	private static String LINK_1 = "https://jx.618g.com/?url=";
 
 	@Clear(LoginInterceptor.class)
@@ -34,12 +36,12 @@ public class IndexController extends Controller {
 	}
 
 	public void app() {
-		System.out.println("to app html......");
+		log.info("to app html......");
 		render("/app.html");
 	}
 
 	public void preview() {
-		System.out.println("to preview html......");
+		log.info("to preview html......");
 		render("/preview.html");
 	}
 
@@ -51,7 +53,7 @@ public class IndexController extends Controller {
 	 */
 	@Clear(LoginInterceptor.class)
 	public void jiangying() {
-		System.out.println("to location html......");
+		log.info("to location html......");
 		render("/location.html");
 	}
 
@@ -63,7 +65,7 @@ public class IndexController extends Controller {
 	 */
 	@Clear(LoginInterceptor.class)
 	public void wenwu() {
-		System.out.println("to location html......");
+		log.info("to location html......");
 		Record record = Db.findFirst("select * from user_location order by id desc");
 		JSONObject obj = JSONObject.parseObject(record.get("location"));
 		setAttr("record", record);
@@ -76,7 +78,7 @@ public class IndexController extends Controller {
 		// setAttr("recordList", recordList);
 		String mediaName = get("mediaName");
 		int platform = getInt("platform");
-		System.out.println(platform + "搜索" + mediaName);
+		log.info(platform + "搜索" + mediaName);
 		switch (platform) {
 		case 1:// 腾讯视频爬虫
 			spiderQQLive(mediaName);

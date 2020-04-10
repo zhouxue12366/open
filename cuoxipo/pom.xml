@@ -121,6 +121,24 @@
 			<version>2019.8</version>
 		</dependency>
 
+		<!-- 避免控制台输出如下提示信息： SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder". 
+			项目中实际上用不到这个 jar 包，本 jfinal demo 用不上这个依赖，在此仅为大家 在未来基于 jfinal demo 为模板做开发时做准备工作 
+			注意：eclipse 下可以将 scope 设置为 provided -->
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-nop</artifactId>
+			<version>1.7.29</version>
+			<!-- 打包前改成 provided，此处使用 compile 仅为支持 IDEA -->
+			<scope>provided</scope>
+		</dependency>
+
+		<!-- log4j 日志 -->
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.17</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<finalName>JProject</finalName>
