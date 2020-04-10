@@ -9,7 +9,7 @@ public class QQLiveController extends Controller{
 
 	public void getHtml(){
 		String documentUrl ="https://v.qq.com/x/cover/bzfkv5se8qaqel2.html?ptag=qqbrowser";
-		Document root = QQLiveHtmlUtils.openHtml(documentUrl);
+		Document root = QQLiveHtmlUtils.getHtml(documentUrl,1);
 		renderHtml(root.html());
 	}
 	

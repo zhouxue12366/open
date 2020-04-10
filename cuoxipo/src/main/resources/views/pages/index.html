@@ -61,109 +61,27 @@
 					</div>
 				</div>
 				<div class="section group">
+				@for(model in tvList!){
 					<div class="grid_1_of_5 images_1_of_5">
-						<a href="/preview"><img
-							src="/static/cqts_bue/images/end-game.jpg" alt="" /></a>
+						<a href="/search?mediaName=${model.name!}&platform=1"><img src="${model.imgUrl!}" alt="" /></a>
 						<h2>
-							<a href="/preview">End Game</a>
+							<a href="/preview">${model.showName!}</a>
 						</h2>
 						<div class="price-details">
 							<div class="price-number">
 								<p>
-									<span class="rupees">$620.87</span>
+									<span class="rupees">评分:${model.score!}</span>
 								</p>
 							</div>
 							<div class="add-cart">
 								<h4>
-									<a href="/preview">Add to Cart</a>
+									<a href="/search?mediaName=${model.name!}&platform=1">播放</a>
 								</h4>
 							</div>
 							<div class="clear"></div>
 						</div>
 					</div>
-					<div class="grid_1_of_5 images_1_of_5">
-						<a href="/preview"><img
-							src="/static/cqts_bue/images/Sorority_Wars.jpg" alt="" /></a>
-						<h2>
-							<a href="/preview">Sorority Wars</a>
-						</h2>
-						<div class="price-details">
-							<div class="price-number">
-								<p>
-									<span class="rupees">$620.87</span>
-								</p>
-							</div>
-							<div class="add-cart">
-								<h4>
-									<a href="/preview">Add to Cart</a>
-								</h4>
-							</div>
-							<div class="clear"></div>
-						</div>
-
-					</div>
-					<div class="grid_1_of_5 images_1_of_5">
-						<a href="/preview"><img
-							src="/static/cqts_bue/images/New-Moon-The-Score-cover-twilight.jpg"
-							alt="" /></a>
-						<h2>
-							<a href="/preview">Twilight New Moon</a>
-						</h2>
-						<div class="price-details">
-							<div class="price-number">
-								<p>
-									<span class="rupees">$899.75</span>
-								</p>
-							</div>
-							<div class="add-cart">
-								<h4>
-									<a href="/preview">Add to Cart</a>
-								</h4>
-							</div>
-							<div class="clear"></div>
-						</div>
-
-					</div>
-					<div class="grid_1_of_5 images_1_of_5">
-						<a href="/preview"><img
-							src="/static/cqts_bue/images/avatar_movie.jpg" alt="" /></a>
-						<h2>
-							<a href="/preview">Avatar</a>
-						</h2>
-						<div class="price-details">
-							<div class="price-number">
-								<p>
-									<span class="rupees">$599.00</span>
-								</p>
-							</div>
-							<div class="add-cart">
-								<h4>
-									<a href="/preview">Add to Cart</a>
-								</h4>
-							</div>
-							<div class="clear"></div>
-						</div>
-					</div>
-					<div class="grid_1_of_5 images_1_of_5">
-						<a href="/preview"><img
-							src="/static/cqts_bue/images/black-swan.jpg" alt="" /></a>
-						<h2>
-							<a href="/preview">Black Swan</a>
-						</h2>
-						<div class="price-details">
-							<div class="price-number">
-								<p>
-									<span class="rupees">$679.87</span>
-								</p>
-							</div>
-							<div class="add-cart">
-								<h4>
-									<a href="/preview">Add to Cart</a>
-								</h4>
-							</div>
-							<div class="clear"></div>
-						</div>
-					</div>
+				@}
 				</div>
 				<div class="content_bottom">
 					<div class="heading">

@@ -23,3 +23,19 @@ Table: user_location
  create_time   | DATETIME(19)         | YES  |     |         | 创建时间    
 ---------------+----------------------+------+-----+---------+---------
 
+Table: video_tv
+-------------+---------------+------+-----+---------+---------
+ Field       | Type          | Null | Key | Default | Remarks 
+-------------+---------------+------+-----+---------+---------
+ id          | INT(10)       | NO   | PRI |         |         
+ name        | VARCHAR(100)  | YES  |     |         | 名称      
+ show_name   | VARCHAR(100)  | YES  |     |         | 页面显示的名称 
+ title       | VARCHAR(100)  | YES  |     |         | 标题      
+ descption   | VARCHAR(1024) | YES  |     |         | 描述      
+ play_url    | VARCHAR(500)  | YES  |     |         | 播放地址    
+ img_url     | VARCHAR(500)  | YES  |     |         | 图片地址    
+ platform    | VARCHAR(50)   | YES  |     |         | 平台：QQ，iqiyi...
+ score       | VARCHAR(10)   | YES  |     |         | 平分      
+ create_time | DATETIME(19)  | YES  |     |         |         
+-------------+---------------+------+-----+---------+---------
+

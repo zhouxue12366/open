@@ -10,6 +10,8 @@ import org.jsoup.select.Elements;
 
 import com.alibaba.fastjson.JSONObject;
 import com.basic.framework.interceptor.LoginInterceptor;
+import com.basic.framework.model.VideoTv;
+import com.basic.framework.spider.QQLiveSpider;
 import com.basic.framework.utils.DocumentToolkit;
 import com.basic.framework.utils.QQLiveHtmlUtils;
 import com.jfinal.aop.Clear;
@@ -32,6 +34,8 @@ public class IndexController extends Controller {
 
 	@Clear(LoginInterceptor.class)
 	public void index() {
+		List<VideoTv> tvList = QQLiveSpider.spiderQQLiveTv();
+		set("tvList", tvList);
 		render("/index.html");
 	}
 
@@ -102,7 +106,7 @@ public class IndexController extends Controller {
 	}
 
 	/**
-	 * 腾讯视频爬虫
+	 * 腾讯视频搜索爬虫
 	 * 
 	 * @Title spiderQQLive
 	 * @Description
@@ -111,10 +115,10 @@ public class IndexController extends Controller {
 	 */
 	private void spiderQQLive(String mediaName) {
 		String documentUrl = "https://v.qq.com/x/search/?q=" + mediaName + "&stag=0&smartbox_ab=";
-		Document root = QQLiveHtmlUtils.openHtml(documentUrl);
+		Document root = QQLiveHtmlUtils.getHtml(documentUrl,1);
 		Elements infos = root.select("._infos");
 		Elements result = infos.first().select(".desc_more");
-		Document detail = QQLiveHtmlUtils.openHtml(result.attr("href"));
+		Document detail = QQLiveHtmlUtils.getHtml(result.attr("href"),1);
 
 		Elements figure_pic = detail.select(".figure_pic");
 		String imgSrc = figure_pic.first().attr("src");

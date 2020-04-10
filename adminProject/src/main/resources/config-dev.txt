@@ -1,5 +1,0 @@
-jdbcUrl = jdbc:mysql://localhost/webgeneral
-userName = root
-password = root
-port = 3306
-devMode = true

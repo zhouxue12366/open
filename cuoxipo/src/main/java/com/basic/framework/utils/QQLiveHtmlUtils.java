@@ -20,11 +20,12 @@ public class QQLiveHtmlUtils {
 	 * @return 
 	 * @since 2019年10月12日 下午5:46:08
 	 */
-	public static Document openHtml(String documentUrl){
-		Document root = DocumentToolkit.getDocument(documentUrl, 1);
+	public static Document getHtml(String documentUrl, int method){
+		Document root = DocumentToolkit.getDocument(documentUrl, method);
 //		System.out.println(root);
 		return root;
 	}
+	
 	
 	/**
 	 * 获取视频页面js变量
