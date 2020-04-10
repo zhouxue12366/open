@@ -43,8 +43,12 @@ public class QQLiveSpider {
 			Element figurePic = element.selectFirst(".figure_pic");
 			String figurePicSrc = figurePic.attr("src");
 			String tvName = figurePic.attr("alt");
+
 			Element figureDesc = element.selectFirst(".figure_desc");
-			String tvTitle = figureDesc.attr("title");
+			String tvTitle = "";
+			if (null != figureDesc) {
+				tvTitle = figureDesc.attr("title");
+			}
 			Element figureScore = element.selectFirst(".figure_score");
 			String tvScore = null;
 			if (null != figureScore) {
@@ -78,8 +82,15 @@ public class QQLiveSpider {
 	 * @Description
 	 * @since 2020年4月10日 下午2:41:07
 	 */
-	public void spiderQQLiveMovie() {
+	public static List<VideoTv> spiderQQLiveMovie() {
 		String documentUrl = "https://v.qq.com/channel/movie";
 		Document root = QQLiveHtmlUtils.getHtml(documentUrl, 0);
+		if (null == root) {
+			return null;
+		}
+		Elements tvListItem = root.select("._quickopen_duration .mod_figure .list_item");
+		// log.info(tvListItem);
+		List<VideoTv> videoTvList = getVideoTv(tvListItem);
+		return videoTvList;
 	}
 }
