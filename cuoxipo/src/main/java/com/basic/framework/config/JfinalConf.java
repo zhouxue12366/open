@@ -71,17 +71,17 @@ public class JfinalConf extends JFinalConfig {
 //		// 支持模板热加载，绝大多数生产环境下也建议配置成 true，除非是极端高性能的场景
 //		engine.setDevMode(true);
 //		// 配置极速模式，性能提升 13%
-		Engine.setFastMode(true);
+//		Engine.setFastMode(true);
 	}
 
 	@Override
 	public void configPlugin(Plugins me) {
-//		//配置数据库连接
-//		DruidPlugin dp = new DruidPlugin(prop.get("jdbcUrl"), prop.get("userName"), prop.get("password").trim());
-//	    me.add(dp);
-//	    //配置Record插件
-//	    ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
-//	    me.add(arp);
+		//配置数据库连接
+		DruidPlugin dp = new DruidPlugin(prop.get("jdbcUrl"), prop.get("userName"), prop.get("password").trim());
+	    me.add(dp);
+	    //配置Record插件
+	    ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
+	    me.add(arp);
 	}
 
 	@Override
