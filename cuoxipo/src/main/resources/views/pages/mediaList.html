@@ -44,6 +44,7 @@ function login(){
 						<br/>
 						<p style="padding-left: 50px;">${mediaName}</p>
 						
+						@/***
 						<div style="float: left; margin-top: 10px;">
 						<p>点击播放:
 						@for(item in recordList){
@@ -51,7 +52,10 @@ function login(){
 						@}
 						</p>
 						</div>
+						@***/
+						@/***
 						@if(session.v_live >= 1){
+						@***/
 							<div style="float: left; margin-top: 40px; clear: left;">
 							<p>全屏新页面播放点这里:
 							@for(item in recordList){
@@ -59,8 +63,9 @@ function login(){
 							@}
 							</p>
 							</div>
+						@/***
 						@}
-						
+						@***/
 					</div>
 					</div>
 				</div>

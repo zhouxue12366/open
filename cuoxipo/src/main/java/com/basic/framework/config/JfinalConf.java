@@ -76,12 +76,12 @@ public class JfinalConf extends JFinalConfig {
 
 	@Override
 	public void configPlugin(Plugins me) {
-		//配置数据库连接
-		DruidPlugin dp = new DruidPlugin(prop.get("jdbcUrl"), prop.get("userName"), prop.get("password").trim());
-	    me.add(dp);
-	    //配置Record插件
-	    ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
-	    me.add(arp);
+//		//配置数据库连接
+//		DruidPlugin dp = new DruidPlugin(prop.get("jdbcUrl"), prop.get("userName"), prop.get("password").trim());
+//	    me.add(dp);
+//	    //配置Record插件
+//	    ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
+//	    me.add(arp);
 	}
 
 	@Override

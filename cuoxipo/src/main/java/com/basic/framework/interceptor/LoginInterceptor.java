@@ -17,14 +17,14 @@ public class LoginInterceptor implements Interceptor{
 
 	@Override
 	public void intercept(Invocation inv) {
-		Integer loginUserId = inv.getController().getSessionAttr(Constants.login_User_Id);
+//		Integer loginUserId = inv.getController().getSessionAttr(Constants.login_User_Id);
 		inv.invoke();
-		if(null == loginUserId || loginUserId.intValue() == 0){
-			System.out.println("没有登录");
-			inv.getController().render("/user/login.html");
-		}else{
-			System.out.println("已经登录成功!");
-		}
+//		if(null == loginUserId || loginUserId.intValue() == 0){
+//			System.out.println("没有登录");
+//			inv.getController().render("/user/login.html");
+//		}else{
+//			System.out.println("已经登录成功!");
+//		}
 		
 	}
 
