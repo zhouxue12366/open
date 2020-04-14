@@ -34,14 +34,14 @@ public class IndexController extends Controller {
 
 	@Clear(LoginInterceptor.class)
 	public void index() {
-		int type = getInt(0,1);
+		int type = getInt(0, 1);
 		List<VideoTv> tvList = QQLiveSpider.spiderQQLiveTv();
-		if(type ==2){//显示电影
+		if (type == 2) {// 显示电影
 			tvList = QQLiveSpider.spiderQQLiveMovie();
-		}else{//显示电视剧
+		} else {// 显示电视剧
 			tvList = QQLiveSpider.spiderQQLiveTv();
 		}
-		
+
 		set("tvList", tvList);
 		render("/index.html");
 	}
@@ -58,8 +58,9 @@ public class IndexController extends Controller {
 
 	/**
 	 * 文武要获取定位信息
+	 * 
 	 * @Title jiangying
-	 * @Description   
+	 * @Description
 	 * @since 2020年4月1日 下午5:28:41
 	 */
 	@Clear(LoginInterceptor.class)
@@ -68,10 +69,23 @@ public class IndexController extends Controller {
 		render("/location.html");
 	}
 
+	/**
+	 * 
+	 * @Title jiangying
+	 * @Description
+	 * @since 2020年4月13日 下午5:15:36
+	 */
+	@Clear(LoginInterceptor.class)
+	public void jiangyingQQ() {
+		log.info("to location html......");
+		render("/location_qq.html");
+	}
+
 	/***
 	 * 文武的查看定位信息
+	 * 
 	 * @Title wenwu
-	 * @Description   
+	 * @Description
 	 * @since 2020年4月1日 下午5:27:43
 	 */
 	@Clear(LoginInterceptor.class)
@@ -122,10 +136,10 @@ public class IndexController extends Controller {
 	 */
 	private void spiderQQLive(String mediaName) {
 		String documentUrl = "https://v.qq.com/x/search/?q=" + mediaName + "&stag=0&smartbox_ab=";
-		Document root = QQLiveHtmlUtils.getHtml(documentUrl,1);
+		Document root = QQLiveHtmlUtils.getHtml(documentUrl, 1);
 		Elements infos = root.select("._infos");
 		Elements result = infos.first().select(".desc_more");
-		Document detail = QQLiveHtmlUtils.getHtml(result.attr("href"),1);
+		Document detail = QQLiveHtmlUtils.getHtml(result.attr("href"), 1);
 
 		Elements figure_pic = detail.select(".figure_pic");
 		String imgSrc = figure_pic.first().attr("src");
@@ -237,9 +251,53 @@ public class IndexController extends Controller {
 	 * @since 2020年3月30日 下午3:46:48
 	 */
 	private void spiderYoukuLive(String mediaName) {
-		String documentUrl = "https://so.iqiyi.com/so/q_" + mediaName + "?source=input&sr=144056830036";
-		Document root = DocumentToolkit.getDocument(documentUrl, 1);
+		String documentUrl = "https://www.youku.com/";// + mediaName + "";
+//		String documentUrl = "https://so.youku.com/search_video/q_" + mediaName;
+		Document root = DocumentToolkit.getDocument(documentUrl, 0);
+		List<Record> recordList = new ArrayList<Record>();
 
+		Element nuxt = root.getElementById("app");
+		Elements modulelist = nuxt.select(".modulelist_s_body .common_container .hot-g-row .pack_pack_cover");
+		if(null == modulelist || modulelist.size() <= 0){
+			setAttr("recordList", recordList);
+			return;
+		}
+		String link_2 = "https://api.sigujx.com/?url=";
+		if (null != modulelist && modulelist.size() > 0) {
+			for (Element module : modulelist) {
+				Element album = module.getElementsByTag("a").first();
+				if (album.attr("title").contains(mediaName)) {
+					String href = album.attr("href");
+					String text = album.text();
+
+					Record r = new Record();
+					r.set("id", text);
+					r.set("href", link_2 + href);
+					boolean flag = false;
+					for (Record checkR : recordList) {
+						if (checkR.get("id").equals(text)) {
+							flag = true;
+						}
+					}
+					if (!flag) {
+						recordList.add(r);
+					}
+				}
+			}
+
+		} else {
+			if (null != modulelist && modulelist.size() > 0) {
+				Element btnPrimary = modulelist.first().getElementsByTag("a").first();
+				if (null != btnPrimary) {
+					String href = btnPrimary.attr("href");
+					Record play = new Record();
+					play.set("id", "立即播放");
+					play.set("href", link_2 + href);
+					recordList.add(play);
+				}
+			}
+		}
+		setAttr("recordList", recordList);
 	}
 
 	/**
