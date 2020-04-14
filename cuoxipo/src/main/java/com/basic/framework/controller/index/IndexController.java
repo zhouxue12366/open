@@ -45,6 +45,20 @@ public class IndexController extends Controller {
 		set("tvList", tvList);
 		render("/index.html");
 	}
+	
+	@Clear(LoginInterceptor.class)
+	public void youku() {
+		int type = getInt(0, 1);
+		List<VideoTv> tvList = QQLiveSpider.spiderQQLiveTv();
+		if (type == 2) {// 显示电影
+			tvList = QQLiveSpider.spiderQQLiveMovie();
+		} else {// 显示电视剧
+			tvList = QQLiveSpider.spiderQQLiveTv();
+		}
+
+		set("tvList", tvList);
+		render("/index.html");
+	}
 
 	public void app() {
 		log.info("to app html......");
