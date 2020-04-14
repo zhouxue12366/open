@@ -3,6 +3,7 @@ package com.basic.framework.config;
 import com.basic.framework.controller.index.HelloController;
 import com.basic.framework.controller.index.IndexController;
 import com.basic.framework.controller.user.UserController;
+import com.basic.framework.controller.youku.YoukuController;
 import com.jfinal.config.Routes;
 /**
  * 自定义路由
@@ -21,6 +22,7 @@ public class RouteConfig extends Routes{
 		add("/hello", HelloController.class);
 		add("/index", IndexController.class);
 		add("/user", UserController.class);
+		add("/youku", YoukuController.class);
 //		add("/video", VideoController.class);
 //		add("/qqLive", QQLiveController.class);
 	}

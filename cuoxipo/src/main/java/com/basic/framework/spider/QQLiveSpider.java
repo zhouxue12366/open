@@ -56,13 +56,15 @@ public class QQLiveSpider {
 			}
 
 			VideoTv tv = new VideoTv();
-			tv.setPlayUrl(tvHref);
+			
 			tv.setImgUrl(figurePicSrc);
 			String name = tvName;
 			if (tvName.contains("[") && tvName.contains("]")) {
 				name = tvName.substring(0, tvName.indexOf("["));
 			}
 			tv.setName(name);
+//			tv.setPlayUrl(tvHref);
+			tv.setPlayUrl("/search?mediaName="+name+"&platform=1");
 			tv.setShowName(tvName);
 			tv.setTitle(tvTitle);
 			tv.setDescption(tvTitle);

@@ -12,6 +12,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.basic.framework.interceptor.LoginInterceptor;
 import com.basic.framework.model.VideoTv;
 import com.basic.framework.spider.QQLiveSpider;
+import com.basic.framework.spider.YoukuSpider;
 import com.basic.framework.utils.DocumentToolkit;
 import com.basic.framework.utils.QQLiveHtmlUtils;
 import com.jfinal.aop.Clear;
@@ -46,20 +47,6 @@ public class IndexController extends Controller {
 		render("/index.html");
 	}
 	
-	@Clear(LoginInterceptor.class)
-	public void youku() {
-		int type = getInt(0, 1);
-		List<VideoTv> tvList = QQLiveSpider.spiderQQLiveTv();
-		if (type == 2) {// 显示电影
-			tvList = QQLiveSpider.spiderQQLiveMovie();
-		} else {// 显示电视剧
-			tvList = QQLiveSpider.spiderQQLiveTv();
-		}
-
-		set("tvList", tvList);
-		render("/index.html");
-	}
-
 	public void app() {
 		log.info("to app html......");
 		render("/app.html");

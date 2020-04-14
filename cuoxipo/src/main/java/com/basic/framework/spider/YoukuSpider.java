@@ -27,85 +27,51 @@ public class YoukuSpider {
 	 */
 	public static List<VideoTv> getVideoList() {
 		String documentUrl = "https://www.youku.com/";// + mediaName + "";
-//		String documentUrl = "https://so.youku.com/search_video/q_" + mediaName;
+		// String documentUrl = "https://so.youku.com/search_video/q_" +
+		// mediaName;
 		Document root = DocumentToolkit.getDocument(documentUrl, 0);
-		List<Record> recordList = new ArrayList<Record>();
 
 		Element nuxt = root.getElementById("app");
 		Elements modulelist = nuxt.select(".modulelist_s_body .common_container .hot-g-row .pack_pack_cover");
-		if(null == modulelist || modulelist.size() <= 0){
+		// List<VideoTv> videoTvList = new ArrayList<VideoTv>();
+		if (null == modulelist || modulelist.size() <= 0) {
 			return null;
+		} else {
+			return getVideoTv(modulelist);
 		}
-		String link_2 = "https://api.sigujx.com/?url=";
-		if (null != modulelist && modulelist.size() > 0) {
-			for (Element module : modulelist) {
-				Element album = module.getElementsByTag("a").first();
-				String href = album.attr("href");
-				DocumentToolkit.getDocument(documentUrl, 0);
-			}
-
-		} 
-		// log.info(tvListItem);
-//		List<VideoTv> videoTvList = getVideoTv(tvListItem);
-		return null;
 	}
 
-	private static List<VideoTv> getVideoTv(Elements tvListItem) {
+	private static List<VideoTv> getVideoTv(Elements modulelist) {
 		List<VideoTv> videoTvList = new ArrayList<VideoTv>();
-		for (Element element : tvListItem) {
-			Element figure = element.selectFirst(".figure");
-			String tvHref = figure.attr("href");
-			Element figurePic = element.selectFirst(".figure_pic");
-			String figurePicSrc = figurePic.attr("src");
-			String tvName = figurePic.attr("alt");
+		String https = "https:";
+		for (Element module : modulelist) {
+			Element album = module.getElementsByTag("a").first();
 
-			Element figureDesc = element.selectFirst(".figure_desc");
-			String tvTitle = "";
-			if (null != figureDesc) {
-				tvTitle = figureDesc.attr("title");
-			}
-			Element figureScore = element.selectFirst(".figure_score");
-			String tvScore = null;
-			if (null != figureScore) {
-				tvScore = figureScore.text();
-			}
+			String tvHref = https + album.attr("href");
+			Element figurePic = album.getElementsByTag("img").first();
+			String figurePicSrc = https + figurePic.attr("src");
+			String tvName = album.attr("title");
+			String tvTitle = album.attr("title");
 
 			VideoTv tv = new VideoTv();
-			tv.setPlayUrl(tvHref);
+
 			tv.setImgUrl(figurePicSrc);
 			String name = tvName;
 			if (tvName.contains("[") && tvName.contains("]")) {
 				name = tvName.substring(0, tvName.indexOf("["));
 			}
 			tv.setName(name);
+			tv.setPlayUrl("/youku/play/?name=" + name + "&playUrl=" +  tvHref+"&imgSrc="+figurePicSrc);
 			tv.setShowName(tvName);
 			tv.setTitle(tvTitle);
 			tv.setDescption(tvTitle);
 			tv.setCreateTime(new Date());
-			tv.setPlatform("qq");
-			tv.setScore(tvScore);
+			tv.setPlatform("youku");
+			tv.setScore("");
 
 			videoTvList.add(tv);
 		}
 		return videoTvList;
 	}
 
-	/**
-	 * 腾讯视频电影爬虫
-	 * 
-	 * @Title spiderQQLiveMovie
-	 * @Description
-	 * @since 2020年4月10日 下午2:41:07
-	 */
-	public static List<VideoTv> spiderQQLiveMovie() {
-		String documentUrl = "https://v.qq.com/channel/movie";
-		Document root = QQLiveHtmlUtils.getHtml(documentUrl, 0);
-		if (null == root) {
-			return null;
-		}
-		Elements tvListItem = root.select("._quickopen_duration .mod_figure .list_item");
-		// log.info(tvListItem);
-		List<VideoTv> videoTvList = getVideoTv(tvListItem);
-		return videoTvList;
-	}
 }

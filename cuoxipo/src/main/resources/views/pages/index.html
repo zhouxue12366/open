@@ -31,7 +31,7 @@
 				<div class="section group">
 				@for(model in tvList!){
 					<div class="grid_1_of_5 images_1_of_5">
-						<a href="/search?mediaName=${model.name!}&platform=1"><img src="${model.imgUrl!}" alt="" /></a>
+						<a href="${model.playUrl!}"><img src="${model.imgUrl!}" alt="" /></a>
 						<h2>
 							<a href="/preview">${model.showName!}</a>
 						</h2>
@@ -43,7 +43,7 @@
 							</div>
 							<div class="add-cart">
 								<h4>
-									<a href="/search?mediaName=${model.name!}&platform=1">播放</a>
+									<a href="${model.playUrl!}">播放</a>
 								</h4>
 							</div>
 							<div class="clear"></div>
