@@ -31,7 +31,8 @@ import com.jfinal.plugin.activerecord.Record;
  */
 public class IndexController extends Controller {
 	private Logger log = Logger.getLogger(IndexController.class);
-	private static String LINK_1 = "https://jx.618g.com/?url=";
+//	private static String LINK_1 = "https://jx.618g.com/?url=";
+	private static String LINK_1 = "";
 
 	@Clear(LoginInterceptor.class)
 	public void index() {
