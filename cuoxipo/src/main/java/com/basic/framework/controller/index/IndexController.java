@@ -311,7 +311,7 @@ public class IndexController extends Controller {
 	 * @since 2020年3月30日 下午3:50:12
 	 */
 	private void spiderMangguoLive(String mediaName) {
-		String documentUrl = "https://so.iqiyi.com/so/q_" + mediaName + "?source=input&sr=144056830036";
+		String documentUrl = "https://so.mgtv.com/so?k=" + mediaName + "&lastp=v_progdtl";
 		Document root = DocumentToolkit.getDocument(documentUrl, 1);
 
 	}
