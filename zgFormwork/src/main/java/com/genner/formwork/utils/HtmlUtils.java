@@ -19,14 +19,14 @@ public class HtmlUtils {
 	/**
      * 输出信息到页面
      * @param resp
-     * @param o
+     * @param result
      */
-    public static void writeObject(HttpServletResponse resp,Object o){
+    public static void writeObject(HttpServletResponse resp,Object result){
         resp.setContentType("text/html;charset=utf-8");
         PrintWriter writer=null;
         try {
             writer= resp.getWriter();
-            writer.println(o);
+            writer.println(result);
         } catch (IOException e) {
             e.printStackTrace();
         }finally {

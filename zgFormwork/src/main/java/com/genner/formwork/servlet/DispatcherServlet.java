@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -91,7 +90,7 @@ public class DispatcherServlet extends HttpServlet {
 			return;
 		}
 
-		Map<String, String[]> params = req.getParameterMap();
+//		Map<String, String[]> params = req.getParameterMap();
 
 		Method method = this.handlerMapping.get(url);
 		String beanName = this.toLowerFirstCase(method.getDeclaringClass().getSimpleName());
@@ -108,12 +107,11 @@ public class DispatcherServlet extends HttpServlet {
 				}else if(types.equals(HttpServletResponse.class)){
 					objects.add(resp);
 				}else{
-					objects.add(params);
+					objects.add(req.getParameter(parameter.getName()));
 				}
 				System.out.println(types);
 			}
-			result = method.invoke(ioc.get(beanName), new Object[] { req, resp, params.get("name")[0] });
-//			result = method.invoke(ioc.get(beanName), objects);
+			result = method.invoke(ioc.get(beanName), objects.toArray());
 		}
 		
 		HtmlUtils.writeObject(resp, result);
