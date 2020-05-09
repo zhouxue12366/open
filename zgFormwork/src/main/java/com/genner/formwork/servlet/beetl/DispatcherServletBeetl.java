@@ -29,6 +29,7 @@ import com.genner.formwork.annotation.Autowired;
 import com.genner.formwork.annotation.Controller;
 import com.genner.formwork.annotation.RequestMapping;
 import com.genner.formwork.annotation.Service;
+import com.genner.formwork.utils.StringUtils;
 
 /**
  * 手写的一个spring
@@ -93,10 +94,10 @@ public class DispatcherServletBeetl extends HttpServlet {
 			return;
 		}
 
-		 Map<String, String[]> params = request.getParameterMap();
+//		 Map<String, String[]> params = request.getParameterMap();
 
 		Method method = this.handlerMapping.get(url);
-		String beanName = this.toLowerFirstCase(method.getDeclaringClass().getSimpleName());
+		String beanName = StringUtils.toLowerFirstCase(method.getDeclaringClass().getSimpleName());
 		Object result = null;
 		
 		Parameter[] methodParams = method.getParameters();
@@ -250,13 +251,13 @@ public class DispatcherServletBeetl extends HttpServlet {
 
 				if (clazz.isAnnotationPresent(Controller.class)) {
 					// 默认类名首字母小写
-					String beanName = this.toLowerFirstCase(clazz.getSimpleName());
+					String beanName = StringUtils.toLowerFirstCase(clazz.getSimpleName());
 					Object instance = clazz.newInstance();
 					ioc.put(beanName, instance);
 
 				} else if (clazz.isAnnotationPresent(Service.class)) {
 					// 默认类名首字母小写
-					String beanName = this.toLowerFirstCase(clazz.getSimpleName());
+					String beanName = StringUtils.toLowerFirstCase(clazz.getSimpleName());
 
 					// 自定义命名beanName
 					Service service = clazz.getAnnotation(Service.class);
@@ -283,21 +284,6 @@ public class DispatcherServletBeetl extends HttpServlet {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-	}
-
-	/**
-	 * 首字母转换成小写
-	 * 
-	 * @Title toLowerFirstCase
-	 * @Description
-	 * @param value
-	 * @return
-	 * @since 2020年5月8日 下午4:55:23
-	 */
-	private String toLowerFirstCase(String value) {
-		char[] chars = value.toCharArray();
-		chars[0] += 32;
-		return String.valueOf(chars);
 	}
 
 	/**

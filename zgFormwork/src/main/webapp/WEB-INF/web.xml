@@ -9,6 +9,7 @@
 		<servlet-name>zgmvc</servlet-name>
 		<servlet-class>com.genner.formwork.servlet.DispatcherServlet</servlet-class>
 <!-- 		<servlet-class>com.genner.formwork.servlet.beetl.DispatcherServletBeetl</servlet-class> -->
+<!-- 		<servlet-class>com.genner.formwork.servlet.jfinal.DispatcherServletJfinal</servlet-class> -->
 		<init-param>
 			<param-name>contextConfigLocation</param-name>
 			<param-value>application.properties</param-value>
