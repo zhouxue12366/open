@@ -20,12 +20,32 @@
 			<version>4.0.1</version>
 			<scope>provided</scope>
 		</dependency>
-<!-- 		beetl模板,如果不用前端模板可以注释掉 -->
+		<!-- beetl模板,如果不用前端模板可以注释掉 -->
 		<dependency>
 			<groupId>com.ibeetl</groupId>
 			<artifactId>beetl</artifactId>
 			<version>3.0.11.RELEASE</version>
 		</dependency>
+
+		<!-- jfinal 的ActiveRecordPlugin插件,如果不用可以注释掉 -->
+		<dependency>
+			<groupId>com.jfinal</groupId>
+			<artifactId>activerecord</artifactId>
+			<version>4.8</version>
+		</dependency>
+		<!-- mysql 驱动 -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.44</version>
+		</dependency>
+		<!-- druid 数据源连接池 -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>druid</artifactId>
+			<version>1.1.22</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

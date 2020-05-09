@@ -28,6 +28,7 @@ public class IndexController {
 	public String home(HttpServletRequest request, HttpServletResponse response, @RequestParam("name") String name) {
 		String serviceList = indexService.getIndexList();
 		String result =  "hello,欢迎来到" + name + "正在获取业务层:" + serviceList;
+		System.out.println(result);
 		request.setAttribute("result", result);
 		return "index";
 	}
