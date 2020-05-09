@@ -109,7 +109,7 @@ public class DispatcherServlet extends HttpServlet {
 				}else{
 					objects.add(req.getParameter(parameter.getName()));
 				}
-				System.out.println(types);
+//				System.out.println(types);
 			}
 			result = method.invoke(ioc.get(beanName), objects.toArray());
 		}
