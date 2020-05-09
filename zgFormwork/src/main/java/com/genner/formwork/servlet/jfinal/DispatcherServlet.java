@@ -1,4 +1,4 @@
-package com.genner.formwork.servlet;
+package com.genner.formwork.servlet.jfinal;
 
 import java.io.File;
 import java.io.IOException;

@@ -1,4 +1,4 @@
-package com.genner.formwork.servlet;
+package com.genner.formwork.servlet.beetl;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,12 +20,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import org.beetl.core.resource.WebAppResourceLoader;
+import org.beetl.ext.servlet.ServletGroupTemplate;
 
 import com.genner.formwork.annotation.Autowired;
 import com.genner.formwork.annotation.Controller;
 import com.genner.formwork.annotation.RequestMapping;
 import com.genner.formwork.annotation.Service;
-import com.genner.formwork.utils.HtmlUtils;
 
 /**
  * 手写的一个spring
@@ -37,7 +40,7 @@ import com.genner.formwork.utils.HtmlUtils;
  * @date 2020年5月8日 下午6:14:47
  * @version V1.0
  */
-public class DispatcherServlet extends HttpServlet {
+public class DispatcherServletBeetl extends HttpServlet {
 
 	/**
 	 * @Fields serialVersionUID :
@@ -75,26 +78,27 @@ public class DispatcherServlet extends HttpServlet {
 	 * 
 	 * @Title doDispatch
 	 * @Description
-	 * @param req
-	 * @param resp
+	 * @param request
+	 * @param response
 	 * @throws IOException
 	 * @since 2020年5月8日 下午4:30:45
 	 */
-	private void doDispatch(HttpServletRequest req, HttpServletResponse resp) throws Exception {
-		String url = req.getRequestURI();
-		String contextPath = req.getContextPath();
+	private void doDispatch(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String url = request.getRequestURI();
+		String contextPath = request.getContextPath();
 		url = url.replaceAll(contextPath, "").replaceAll("/+", "/");
 
 		if (!this.handlerMapping.containsKey(url)) {
-			resp.getWriter().write("404 Not Found!!!");
+			response.getWriter().write("404 Not Found!!!");
 			return;
 		}
 
-		// Map<String, String[]> params = req.getParameterMap();
+		 Map<String, String[]> params = request.getParameterMap();
 
 		Method method = this.handlerMapping.get(url);
 		String beanName = this.toLowerFirstCase(method.getDeclaringClass().getSimpleName());
 		Object result = null;
+		
 		Parameter[] methodParams = method.getParameters();
 		if (null == methodParams || 0 == methodParams.length) {
 			result = method.invoke(ioc.get(beanName));
@@ -103,26 +107,32 @@ public class DispatcherServlet extends HttpServlet {
 			for (Parameter parameter : methodParams) {
 				Class<?> types = parameter.getType();
 				if (types.equals(HttpServletRequest.class)) {
-					objects.add(req);
+					objects.add(request);
 				} else if (types.equals(HttpServletResponse.class)) {
-					objects.add(resp);
+					objects.add(response);
+				} else if (types.equals(HttpSession.class)) {
+					objects.add(request.getSession());
 				} else {
-					objects.add(req.getParameter(parameter.getName()));
+					
+					objects.add(request.getParameter(parameter.getName()));
 				}
 				// System.out.println(types);
 			}
 			result = method.invoke(ioc.get(beanName), objects.toArray());
 		}
 
-		String basePathHtml = "/views/pages/";
+		// String basePathHtml = "/views/page/";
 		String suffix = ".html";
-		String html = basePathHtml + result.toString() + suffix;
-		InputStream is = this.getClass().getClassLoader().getResourceAsStream(html);
-		if (null == is) {
-			resp.getWriter().write("404 Not Found," + html);
-			return;
-		}
-		HtmlUtils.writeObject(resp, is);
+		// String html = basePathHtml + result.toString() + suffix;
+		// 直接返回
+		// InputStream is = this.getClass().getClassLoader()
+		// .getResourceAsStream(html);
+		// HtmlUtils.writeObject(resp, is);
+
+		// 使用beetl模板
+		WebAppResourceLoader resourceLoader = new WebAppResourceLoader();
+		ServletGroupTemplate.instance().getGroupTemplate().setResourceLoader(resourceLoader);
+		ServletGroupTemplate.instance().render(result.toString() + suffix, request, response);
 	}
 
 	@Override

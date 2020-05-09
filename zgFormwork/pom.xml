@@ -20,8 +20,29 @@
 			<version>4.0.1</version>
 			<scope>provided</scope>
 		</dependency>
+<!-- 		beetl模板,如果不用前端模板可以注释掉 -->
+		<dependency>
+			<groupId>com.ibeetl</groupId>
+			<artifactId>beetl</artifactId>
+			<version>3.0.11.RELEASE</version>
+		</dependency>
 	</dependencies>
+
 	<build>
 		<finalName>zgFormwork</finalName>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+					<encoding>utf8</encoding>
+					<compilerArgs>
+						<arg>-parameters</arg>
+					</compilerArgs>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 </project>

@@ -17,16 +17,18 @@ public class IndexController {
 	private IndexService indexService;
 
 	@RequestMapping("/hello")
-	public String hello() {
+	public String hello(HttpServletRequest request) {
 		System.out.println("start hello....");
 		String serviceList = indexService.getIndexList();
-		return "hello," + serviceList;
+		request.setAttribute("result", serviceList);
+		return "index";
 	}
 
 	@RequestMapping("/home")
 	public String home(HttpServletRequest request, HttpServletResponse response, @RequestParam("name") String name) {
 		String serviceList = indexService.getIndexList();
 		String result =  "hello,欢迎来到" + name + "正在获取业务层:" + serviceList;
-		return result;
+		request.setAttribute("result", result);
+		return "index";
 	}
 }
