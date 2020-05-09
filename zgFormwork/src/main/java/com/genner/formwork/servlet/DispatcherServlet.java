@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
+import java.lang.reflect.Type;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,11 +26,13 @@ import com.genner.formwork.annotation.Autowired;
 import com.genner.formwork.annotation.Controller;
 import com.genner.formwork.annotation.RequestMapping;
 import com.genner.formwork.annotation.Service;
+import com.genner.formwork.utils.HtmlUtils;
 
 /**
  * 手写的一个spring
+ * 
  * @Title DispatcherServlet.java
- * @Description 
+ * @Description
  * @Company: 周大炮工作室
  * @author zg
  * @date 2020年5月8日 下午6:14:47
@@ -58,6 +62,7 @@ public class DispatcherServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 根据URL去找到对应的Method
 		try {
+			resp.setContentType("text/html;charset=utf-8");
 			this.doDispatch(req, resp);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -90,12 +95,28 @@ public class DispatcherServlet extends HttpServlet {
 
 		Method method = this.handlerMapping.get(url);
 		String beanName = this.toLowerFirstCase(method.getDeclaringClass().getSimpleName());
-		if (params.size() <= 0) {
-			method.invoke(ioc.get(beanName));
-		} else {
-			method.invoke(ioc.get(beanName), new Object[] { req, resp, params.get("name")[0] });
+		Object result = null;
+		Parameter[] methodParams = method.getParameters();
+		if(null == methodParams || 0 == methodParams.length){
+			result = method.invoke(ioc.get(beanName));
+		}else{
+			List<Object> objects = new ArrayList<Object>();
+			for (Parameter parameter : methodParams) {
+				Class<?> types = parameter.getType();
+				if(types.equals(HttpServletRequest.class)){
+					objects.add(req);
+				}else if(types.equals(HttpServletResponse.class)){
+					objects.add(resp);
+				}else{
+					objects.add(params);
+				}
+				System.out.println(types);
+			}
+			result = method.invoke(ioc.get(beanName), new Object[] { req, resp, params.get("name")[0] });
+//			result = method.invoke(ioc.get(beanName), objects);
 		}
-
+		
+		HtmlUtils.writeObject(resp, result);
 	}
 
 	@Override
@@ -107,7 +128,7 @@ public class DispatcherServlet extends HttpServlet {
 		// 扫描相关的类
 		this.doScanner(contextConfig.getProperty("scanPackage"));
 
-		// ioc容器初始化实例化，并且实例化扫描到的相关的类放入到ioc容器之中
+		// ioc容器初始实例化，并且实例化扫描到的相关的类放入到ioc容器之中
 		this.doInstance();
 
 		// 完成依赖注入
