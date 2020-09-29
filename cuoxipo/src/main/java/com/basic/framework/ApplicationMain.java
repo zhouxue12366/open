@@ -62,6 +62,6 @@ public class ApplicationMain {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-	    JFinal.start("src/main/webapp", 8080, "/", 5);
+	    JFinal.start("src/main/webapp", 80, "/", 5);
 	}
 }

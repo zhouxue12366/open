@@ -44,6 +44,7 @@ public class IndexController extends Controller {
 			tvList = QQLiveSpider.spiderQQLiveTv();
 		}
 
+		set("type", type);
 		set("tvList", tvList);
 		render("/index.html");
 	}
@@ -143,9 +144,12 @@ public class IndexController extends Controller {
 		Elements result = infos.first().select(".desc_more");
 		Document detail = QQLiveHtmlUtils.getHtml(result.attr("href"), 1);
 
-		Elements figure_pic = detail.select(".figure_pic");
-		String imgSrc = figure_pic.first().attr("src");
-		setAttr("imgSrc", imgSrc);
+		if(null != detail){
+			Elements figure_pic = detail.select(".figure_pic");
+			String imgSrc = figure_pic.first().attr("src");
+			setAttr("imgSrc", imgSrc);
+		}
+		
 
 		List<Record> recordList = new ArrayList<Record>();
 		Elements modEpisode = detail.select(".mod_episode .item");
