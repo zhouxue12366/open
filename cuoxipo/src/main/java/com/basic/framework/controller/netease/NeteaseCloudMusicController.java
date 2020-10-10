@@ -6,7 +6,6 @@ import java.net.URLDecoder;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.ClientProtocolException;
-import org.jsoup.Jsoup;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
@@ -31,12 +30,15 @@ import com.jfinal.core.Controller;
  * 
  *          获取到音乐的 id 后，将 https://music.163.com/song/media/outer/url?id=id.mp3 以
  *          src 赋予 Audio 即可播放
+ *          --------------------------------
+ *  API：https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=%e8%8e%b7%e5%8f%96%e6%ad%8c%e6%9b%b2%e8%af%a6%e6%83%85
  */
 public class NeteaseCloudMusicController extends Controller {
 
 	private String API_URL = "https://autumnfish.cn";
 	private String SEARCH_URL = "/search?keywords=";
 	// private String CLOUDSEARCH_URL = "/cloudsearch?keywords=";
+	 private String DETAIL_URL = "/song/detail?ids=";
 
 	@Clear(LoginInterceptor.class)
 	public void mp3() throws UnsupportedEncodingException {
@@ -75,7 +77,14 @@ public class NeteaseCloudMusicController extends Controller {
 				JSONArray artistsArray = JSONArray.parseArray(artists);
 				JSONObject artistsObj = artistsArray.getJSONObject(0);
 				if (i <= 0) {
-					set("imgUrl", artistsObj.getString("img1v1Url"));
+					//获取歌曲详情
+					JSONObject details= this.apiSongDetail(id);
+					JSONArray detailSongs = JSONArray.parseArray(details.getString("songs"));
+					if(null != detailSongs && detailSongs.size() >0){
+						JSONObject detail = detailSongs.getJSONObject(0);
+						JSONObject al = detail.getJSONObject("al");
+						set("imgUrl", al.getString("picUrl"));
+					}
 				}
 				// System.out.println("id="+id+",name="+name+",专辑="+albumName);
 
@@ -98,12 +107,39 @@ public class NeteaseCloudMusicController extends Controller {
 		}
 	}
 
+	/**
+	 * 获取歌曲基本信息
+	 * @Title apiRequest
+	 * @Description  
+	 * @param name
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException 
+	 * @since 2020年10月10日 下午4:22:50
+	 */
 	private JSONObject apiRequest(String name) throws ClientProtocolException, IOException {
 		// https://autumnfish.cn/search?keywords= 海阔天空
 		String url = API_URL + SEARCH_URL + name;
 		String mp3Str = HttpUtil.sendGetData(url, "UTF-8");
 		JSONObject obj = JSONObject.parseObject(mp3Str);
 		return obj;
+	}
+	
+	/**
+	 * 获取歌曲详情
+	 * @Title apiSongDetail
+	 * @Description  
+	 * @param ids
+	 * @return
+	 * @throws ClientProtocolException
+	 * @throws IOException 
+	 * @since 2020年10月10日 下午4:22:42
+	 */
+	private JSONObject apiSongDetail(String ids) throws ClientProtocolException, IOException{
+		String url = API_URL + DETAIL_URL + ids;
+		String mp3Str = HttpUtil.sendGetData(url, "UTF-8");
+		JSONObject detail = JSONObject.parseObject(mp3Str);
+		return detail;
 	}
 
 	public String download(String id) {
