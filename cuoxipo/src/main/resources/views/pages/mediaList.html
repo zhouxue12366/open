@@ -59,7 +59,7 @@ function login(){
 							<div style="float: left; margin-top: 40px; clear: left;">
 							<p>全屏新页面播放点这里:
 							@for(item in recordList!){
-								<a href="https://api.sigujx.com/?url=${item.href}" class="layui-btn layui-btn-warm" target="_blank" style="padding-left: 10px; margin-top: 10px;">${item.id}</a>    
+								<a href="https://api.sigujx.com/?url=${item.href}" class="layui-btn layui-btn-warm" target="_blank" style="padding-left: 10px; margin-top: 10px;">${item.id}${item.alt!}</a>    
 							@}
 							</p>
 							</div>

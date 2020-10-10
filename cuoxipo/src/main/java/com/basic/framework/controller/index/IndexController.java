@@ -3,6 +3,7 @@ package com.basic.framework.controller.index;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -30,7 +31,7 @@ import com.jfinal.plugin.activerecord.Record;
  */
 public class IndexController extends Controller {
 	private Logger log = Logger.getLogger(IndexController.class);
-//	private static String LINK_1 = "https://jx.618g.com/?url=";
+	// private static String LINK_1 = "https://jx.618g.com/?url=";
 	private static String LINK_1 = "";
 
 	@Clear(LoginInterceptor.class)
@@ -47,7 +48,7 @@ public class IndexController extends Controller {
 		set("tvList", tvList);
 		render("/index.html");
 	}
-	
+
 	public void app() {
 		log.info("to app html......");
 		render("/app.html");
@@ -143,12 +144,11 @@ public class IndexController extends Controller {
 		Elements result = infos.first().select(".desc_more");
 		Document detail = QQLiveHtmlUtils.getHtml(result.attr("href"), 1);
 
-		if(null != detail){
+		if (null != detail) {
 			Elements figure_pic = detail.select(".figure_pic");
 			String imgSrc = figure_pic.first().attr("src");
 			setAttr("imgSrc", imgSrc);
 		}
-		
 
 		List<Record> recordList = new ArrayList<Record>();
 		Elements modEpisode = detail.select(".mod_episode .item");
@@ -158,13 +158,26 @@ public class IndexController extends Controller {
 			for (Element mod : modEpisode) {
 				String href = mod.getElementsByTag("a").attr("href");
 				String text = mod.getElementsByTag("a").text();
+				Elements markPic = mod.getElementsByClass("mark_pic");
+				String alt = "";
+				if (null != markPic) {
+					alt = markPic.attr("alt");
+					if (null != alt && alt.contains("VIP")) {
+						alt = "VIP";
+					}
+				}
+				if(StringUtils.isNotBlank(alt)){
+					alt = "(" + alt + ")";
+				}
+
 				mod.getElementsByTag("a").attr("href", LINK_1 + href);
 				Record r = new Record();
 				r.set("id", text);
+				r.set("alt", alt);
 				r.set("href", LINK_1 + href);
 				boolean flag = false;
 				for (Record checkR : recordList) {
-					if (checkR.get("id").equals(text)) {
+					if (checkR.get("id").equals(text) && checkR.get("alt").equals(alt)) {
 						flag = true;
 					}
 				}
@@ -211,19 +224,33 @@ public class IndexController extends Controller {
 		setAttr("imgSrc", https + imgSrc);
 
 		List<Record> recordList = new ArrayList<Record>();
-		Elements albumList = root.select(".result-bottom").select(".album-list");
+		Elements albumList = root.select(".qy-search-result-album").select(".album-list");
 		if (null != albumList && albumList.size() > 0) {
-			Elements albumLinkList = albumList.first().select(".album-link");
+			Elements albumLinkList = null;
+			for (int i = 0; i < albumList.size(); i++) {
+				if(albumList.get(i).attr("style").contains("display:none;")){
+					albumLinkList = albumList.get(i).select(".album-item");
+					break;
+				}
+			}
+			
 			for (Element album : albumLinkList) {
-				String href = album.attr("href");
-				String text = album.text();
+				Element a = album.getElementsByTag("a").get(0);
+				String href = a.attr("href");
+				String text = a.text();
+				Elements alt = album.getElementsByTag("img");
+				String altStr = alt.attr("alt");
+				if(StringUtils.isNotBlank(altStr)){
+					altStr = "(" + altStr + ")";
+				}
 
 				Record r = new Record();
 				r.set("id", text);
+				r.set("alt", altStr);
 				r.set("href", LINK_1 + https + href);
 				boolean flag = false;
 				for (Record checkR : recordList) {
-					if (checkR.get("id").equals(text)) {
+					if (checkR.get("id").equals(text) && checkR.get("alt").equals(alt)) {
 						flag = true;
 					}
 				}
@@ -257,13 +284,14 @@ public class IndexController extends Controller {
 	 */
 	private void spiderYoukuLive(String mediaName) {
 		String documentUrl = "https://www.youku.com/";// + mediaName + "";
-//		String documentUrl = "https://so.youku.com/search_video/q_" + mediaName;
+		// String documentUrl = "https://so.youku.com/search_video/q_" +
+		// mediaName;
 		Document root = DocumentToolkit.getDocument(documentUrl, 0);
 		List<Record> recordList = new ArrayList<Record>();
 
 		Element nuxt = root.getElementById("app");
 		Elements modulelist = nuxt.select(".modulelist_s_body .common_container .hot-g-row .pack_pack_cover");
-		if(null == modulelist || modulelist.size() <= 0){
+		if (null == modulelist || modulelist.size() <= 0) {
 			setAttr("recordList", recordList);
 			return;
 		}
