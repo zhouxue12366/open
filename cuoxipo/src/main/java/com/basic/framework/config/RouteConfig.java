@@ -3,6 +3,7 @@ package com.basic.framework.config;
 import com.basic.framework.controller.index.HelloController;
 import com.basic.framework.controller.index.IndexController;
 import com.basic.framework.controller.mangGuo.MangGuoController;
+import com.basic.framework.controller.netease.NeteaseCloudMusicController;
 import com.basic.framework.controller.user.UserController;
 import com.basic.framework.controller.youku.YoukuController;
 import com.jfinal.config.Routes;
@@ -25,6 +26,7 @@ public class RouteConfig extends Routes{
 		add("/user", UserController.class);
 		add("/youku", YoukuController.class);
 		add("/mangGuo", MangGuoController.class);
+		add("/music163", NeteaseCloudMusicController.class);
 //		add("/qqLive", QQLiveController.class);
 	}
 

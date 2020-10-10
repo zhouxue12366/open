@@ -1,7 +1,5 @@
 package com.basic.framework.controller.youku;
 
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,6 +51,7 @@ public class YoukuController extends BaseController {
 		Element nuxt = root.selectFirst(".listbox .anthology-content");
 		Elements modulelist = nuxt.getElementsByTag("a");
 		String link_2 = "https://api.sigujx.com/?url=";
+		String url8090 = "https://www.8090g.cn/jiexi/?url=";
 		if (null != modulelist && modulelist.size() > 0) {
 			for (Element module : modulelist) {
 				// if (mediaName.contains(module.attr("title"))) {
@@ -62,6 +61,7 @@ public class YoukuController extends BaseController {
 				Record r = new Record();
 				r.set("id", text);
 				r.set("href", link_2 + href);
+				r.set("source_href", href);
 				boolean flag = false;
 				for (Record checkR : recordList) {
 					if (checkR.get("id").equals(text)) {
@@ -82,10 +82,13 @@ public class YoukuController extends BaseController {
 					Record play = new Record();
 					play.set("id", "立即播放");
 					play.set("href", link_2 + href);
+					play.set("source_href", href);
 					recordList.add(play);
 				}
 			}
 		}
+		
+		setAttr("url8090", url8090);
 		setAttr("recordList", recordList);
 
 		render("/youku/play.html");

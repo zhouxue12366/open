@@ -44,6 +44,7 @@ public class JfinalConf extends JFinalConfig {
 	
 	@Override
 	public void configConstant(Constants me) {
+		
 		loadConfig();
 		me.setDevMode(prop.getBoolean("devMode", false));
 		// 开启对 jfinal web 项目组件 Controller、Interceptor、Validator 的注入
@@ -53,7 +54,7 @@ public class JfinalConf extends JFinalConfig {
 		
 		//配置beetl模板
 		this.beetlConfig(me);
-		
+		me.setEncoding("UTF-8");
 		// 配置 404、500 页面
 	    me.setError404View("/comm/404.html");
 	    me.setError500View("/comm/500.html"); 

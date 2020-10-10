@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>撮溪坡影视城-播放-${paramName!}</title>
+@include("/comm/head.html"){}
+
+<script type="text/javascript">
+// "/user/login"
+function login(){
+	$.ajax({
+        type: "POST",
+        url:"/user/login",
+        data:$('#loginForm').serialize(),// 要提交的表单 
+        success: function(data) {
+//         	console.log(data);
+        	if(data.code == 200){
+        		layer.msg("登录成功",{time:2000}, function(){
+        			window.location.href ="/";
+        		});
+        	}else{
+        		layer.msg("登录失败");
+        	}
+        	
+       	}
+    });
+}
+</script>
+</head>
+
+<body>
+	<div class="header">
+		@include("/comm/top.html"){}
+		<div class="wrap">
+			<div class="header_top">
+				<div class="logo">
+					<a href="/"> 
+						<img src="/static/cqts_bue/images/zg.png" alt="" style="width: 187px; height: 74px;" />
+					</a>
+				</div>
+				欢迎使用MP3下载
+				<div class="search_box" style="width: 380px;">
+					<form action="/music163/mp3/">
+						<input type="text" name="name" value="${name!}" placeholder="请输入您要下载的歌曲名称"> 
+						<input type="submit" value="">
+					</form>
+				</div>
+			</div>
+			
+			<div class="main" style="height: 950px;">
+				<div class="wrap">
+					<div class="content">
+						<div style="width: 100%">
+						@if("" != imgUrl! && null != imgUrl!){
+						<img alt="" src="${imgUrl!}" style="width: 310px; height: 400px;">
+						@}
+						
+							<ul style="float: left; margin-top: 40px; clear: left;">
+							@for(item in mp3List!){
+								<li>${item.name!}:
+								<audio controls title="${item.name!}">
+								  <source src="${item.url!}" type="audio/mpeg" >
+								</audio>
+								<a href="${item.url!}" target="_blank">点击下载</a>
+								</li>
+								<hr/>
+							@}
+							</ul>
+					</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
