@@ -12,7 +12,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.basic.framework.interceptor.LoginInterceptor;
 import com.basic.framework.model.VideoTv;
 import com.basic.framework.spider.QQLiveSpider;
-import com.basic.framework.spider.YoukuSpider;
 import com.basic.framework.utils.DocumentToolkit;
 import com.basic.framework.utils.QQLiveHtmlUtils;
 import com.jfinal.aop.Clear;

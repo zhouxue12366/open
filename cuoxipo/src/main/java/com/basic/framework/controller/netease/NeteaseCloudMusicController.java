@@ -6,9 +6,11 @@ import java.net.URLDecoder;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.basic.framework.controller.index.IndexController;
 import com.basic.framework.interceptor.LoginInterceptor;
 import com.basic.framework.utils.HttpUtil;
 import com.jfinal.aop.Clear;
@@ -34,6 +36,7 @@ import com.jfinal.core.Controller;
  *  API：https://binaryify.github.io/NeteaseCloudMusicApi/#/?id=%e8%8e%b7%e5%8f%96%e6%ad%8c%e6%9b%b2%e8%af%a6%e6%83%85
  */
 public class NeteaseCloudMusicController extends Controller {
+	private Logger log = Logger.getLogger(NeteaseCloudMusicController.class);
 
 	private String API_URL = "https://autumnfish.cn";
 	private String SEARCH_URL = "/search?keywords=";
@@ -97,7 +100,7 @@ public class NeteaseCloudMusicController extends Controller {
 				mp3.put("albumName", albumName);
 				mp3List.add(mp3);
 			}
-			System.out.println(mp3List);
+			log.info(mp3List);
 			setAttr("mp3List", mp3List);
 			return;
 		} catch (ClientProtocolException e) {
