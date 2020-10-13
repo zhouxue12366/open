@@ -9,6 +9,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.basic.framework.interceptor.LoginInterceptor;
 import com.basic.framework.model.VideoTv;
@@ -105,12 +106,16 @@ public class IndexController extends Controller {
 		// List<Record> recordList = spiderQQLive(get("mediaName"));
 		// setAttr("recordList", recordList);
 		String mediaName = get("mediaName");
-		int platform = getInt("platform");
+		int platform = getInt("platform", 1);
 		log.info(platform + "搜索" + mediaName);
+		setAttr("platform", platform);
+		setAttr("mediaName", mediaName);
+		
 		switch (platform) {
 		case 1:// 腾讯视频爬虫
-			spiderQQLive(mediaName);
-			break;
+			getApiQQLive(mediaName);
+			render("/qqlive/mediaList.html");
+			return;
 		case 2:// 爱奇艺爬虫
 			spiderIqiyiLive(mediaName);
 			break;
@@ -124,13 +129,90 @@ public class IndexController extends Controller {
 			spiderQQLive(mediaName);
 			break;
 		}
-
-		setAttr("mediaName", get("mediaName"));
 		render("/mediaList.html");
 	}
 
+	private void getApiQQLive(String mediaName) {
+		try {
+			int type = 0;// 2:电影,4:电视剧
+			String documentUrl = "https://v.qq.com/x/search/?q=" + mediaName + "&stag=0&smartbox_ab=";
+			Document root = QQLiveHtmlUtils.getHtml(documentUrl, 1);
+			Elements resultItem = root.select(".result_item");
+			// 视频的id
+			String liveDataId = resultItem.attr("data-id");
+
+			Elements resultTabs = root.select("._playlist .result_tabs");
+			Elements resultTabsItem = resultTabs.select(".item");
+			int maxNum = 1000;
+			//有tab（1-50，50-100）这样的时候处理
+			if(null !=resultTabsItem && resultTabsItem.size() >0){
+				for (Element item : resultTabsItem) {
+					// 循环获取最大集数
+					String dataRange = item.attr("data-range");
+					String lastNum = dataRange.substring(dataRange.indexOf("-") + 1, dataRange.length());
+					if (StringUtils.isBlank(lastNum)) {
+						continue;
+					}
+					int lastNumber = Integer.parseInt(lastNum);
+					if (lastNumber > maxNum) {
+						maxNum = lastNumber;
+					}
+				}
+			}else{
+				Elements resultEpisodeList = root.select("._playlist .result_episode_list");
+				Elements resultEpisode = resultEpisodeList.select(".item");
+				//这里不能直接取最后一个,因为最后一个是收起,只能取倒数第二个为最大集数
+				Element lastResultEpisode = resultEpisode.get(resultEpisode.size()-2);
+				String lastNum = lastResultEpisode.text();
+				if (StringUtils.isNotBlank(lastNum)) {
+					int lastNumber = Integer.parseInt(lastNum);
+					maxNum = lastNumber;
+				}
+			}
+
+			// 获取视频图片
+			Elements infos = root.select("._infos");
+			Elements result = infos.first().select(".desc_more");
+			Document detail = QQLiveHtmlUtils.getHtml(result.attr("href"), 1);
+			if (null != detail) {
+				Elements figure_pic = detail.select(".figure_pic");
+				String imgSrc = figure_pic.first().attr("src");
+				setAttr("imgSrc", imgSrc);
+			}
+
+			Elements modEpisode = detail.select(".mod_episode .item");
+			if (null != modEpisode && modEpisode.size() > 0) {
+				// 电视剧走这里
+				type = 4;
+				// 通过api请求获取到视频的json信息
+				JSONObject resultObj = QQLiveHtmlUtils.getApiJson(liveDataId, type, maxNum);
+				JSONObject playlistItem = resultObj.getJSONObject("PlaylistItem");
+				if(null == playlistItem){
+					return;
+				}
+				JSONArray videoPlayList = playlistItem.getJSONArray("videoPlayList");
+				setAttr("playlistItem", playlistItem);
+				setAttr("videoPlayList", videoPlayList);
+			} else {
+				// 电影走这里
+				type = 2;
+				// 通过api请求获取到视频的json信息
+				JSONObject resultObj = QQLiveHtmlUtils.getApiJson(liveDataId, type, maxNum);
+				JSONObject playlistItem = resultObj.getJSONObject("PlaylistItem");
+				JSONArray videoPlayList = playlistItem.getJSONArray("videoPlayList");
+				setAttr("playlistItem", playlistItem);
+				setAttr("videoPlayList", videoPlayList);
+			}
+			setAttr("type", type);
+
+		} catch (Exception e) {
+			log.error("腾讯视频api请求异常:", e);
+		}
+
+	}
+
 	/**
-	 * 腾讯视频搜索爬虫
+	 * 腾讯视频搜索爬虫(爬虫解析的html页面)
 	 * 
 	 * @Title spiderQQLive
 	 * @Description
@@ -166,7 +248,7 @@ public class IndexController extends Controller {
 						alt = "VIP";
 					}
 				}
-				if(StringUtils.isNotBlank(alt)){
+				if (StringUtils.isNotBlank(alt)) {
 					alt = "(" + alt + ")";
 				}
 
@@ -228,19 +310,19 @@ public class IndexController extends Controller {
 		if (null != albumList && albumList.size() > 0) {
 			Elements albumLinkList = null;
 			for (int i = 0; i < albumList.size(); i++) {
-				if(albumList.get(i).attr("style").contains("display:none;")){
+				if (albumList.get(i).attr("style").contains("display:none;")) {
 					albumLinkList = albumList.get(i).select(".album-item");
 					break;
 				}
 			}
-			
+
 			for (Element album : albumLinkList) {
 				Element a = album.getElementsByTag("a").get(0);
 				String href = a.attr("href");
 				String text = a.text();
 				Elements alt = album.getElementsByTag("img");
 				String altStr = alt.attr("alt");
-				if(StringUtils.isNotBlank(altStr)){
+				if (StringUtils.isNotBlank(altStr)) {
 					altStr = "(" + altStr + ")";
 				}
 

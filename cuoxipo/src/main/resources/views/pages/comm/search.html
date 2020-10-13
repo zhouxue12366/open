@@ -5,27 +5,27 @@
 		</a>
 	</div>
 	<div class="header_top">
-		<div class="search_box" style="width: 380px;">
+		<div class="cart" style="width: 320px; margin-top: 5px;">
+			<p><span id="platformShow">${platform! == 1?"腾讯视频" : platform! == 2 ? "爱奇艺":"请选择你要搜索的平台"}</span></p>
+				<div id="dd" class="wrapper-dropdown-2">
+					<ul class="dropdown">
+						<li data-id="1">腾讯视频</li>
+						<li data-id="2">爱奇艺</li>
+	<!-- 								<li data-id="3">优酷</lI> -->
+	<!-- 								<LI DATA-ID="4">芒果</LI> -->
+					</ul>
+				</div>
+			
+		</div>
+		<div class="search_box" style="width: 380px; margin-top: 5px;">
 			<form action="/search">
-				<input type="text" name="mediaName" value="" placeholder="请输入您要观看的视频名称"> 
-				<input type="hidden" name="platform" id="platform" value="1" /> 
-				<input type="submit" value="">
+				<input type="text" name="mediaName" value="${mediaName!}" placeholder="请输入您要观看的视频名称"> 
+				<input type="hidden" name="platform" id="platform" value="${platform!1}" /> 
+				<input type="submit" value="搜索 " style="width: 75px; background-color: #FC7D01; color: #FFFFFF;">
 			</form>
 		</div>
-		<div class="cart" style="width: 320px;">
-			<p>
-				<span id="platformShow">请选择你要搜索的平台</span>
-				<div id="dd" class="wrapper-dropdown-2">
-							<ul class="dropdown">
-								<li data-id="1">腾讯视频</li>
-								<li data-id="2">爱奇艺</li>
-<!-- 								<li data-id="3">优酷</li> -->
-<!-- 								<li data-id="4">芒果</li> -->
-							</ul>
-						</div>
-						</p>
-					</div>
-					<div class="clear"></div>
-				</div>
-				<div class="clear"></div>
-			</div>
+		
+		<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+</div>

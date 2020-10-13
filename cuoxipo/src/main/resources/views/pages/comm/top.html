@@ -68,16 +68,19 @@
 
 			var dd = new DropDown($('#dd'));
 
-			$(document).click(function() {
-				// all dropdowns
-				$('.wrapper-dropdown-2').removeClass('active');
-			});
+// 			$(document).click(function() {
+// 				// all dropdowns
+// 				$('.wrapper-dropdown-2').removeClass('active');
+// 			});
 			$(".dropdown li").click(function() {
 // 				alert($(this).attr("data-id"));
 				$("#platform").val($(this).attr("data-id"));
 				$("#platformShow").html($(this).text());
 			});
-
+			
+			$(".cart").click(function(){
+				$('#dd').addClass('active');
+			});
 		});
 	</script>
 	<script type="text/javascript">
