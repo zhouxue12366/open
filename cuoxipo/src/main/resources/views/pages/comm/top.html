@@ -9,8 +9,8 @@
 		</div>
 		<div class="account_desc">
 			<ul>
-				<li><a href="/user/toRegister">注册</a></li> 
 				@if(null == session || null == session.loginUserId || "" == session.loginUserId){
+					<li><a href="/user/toRegister">注册</a></li> 
 					<li><a href="/user/toLogin">登录</a></li> 
 				@}else{
 					<li><a href="javascript:;" onclick="loginOut()">${session.loginAccount}-退出登录</a></li>
