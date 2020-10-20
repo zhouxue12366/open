@@ -110,7 +110,7 @@ public class IndexController extends Controller {
 		log.info(platform + "搜索" + mediaName);
 		setAttr("platform", platform);
 		setAttr("mediaName", mediaName);
-		
+
 		switch (platform) {
 		case 1:// 腾讯视频爬虫
 			getApiQQLive(mediaName);
@@ -144,8 +144,8 @@ public class IndexController extends Controller {
 			Elements resultTabs = root.select("._playlist .result_tabs");
 			Elements resultTabsItem = resultTabs.select(".item");
 			int maxNum = 1000;
-			//有tab（1-50，50-100）这样的时候处理
-			if(null !=resultTabsItem && resultTabsItem.size() >0){
+			// 有tab（1-50，50-100）这样的时候处理
+			if (null != resultTabsItem && resultTabsItem.size() > 0) {
 				for (Element item : resultTabsItem) {
 					// 循环获取最大集数
 					String dataRange = item.attr("data-range");
@@ -158,11 +158,16 @@ public class IndexController extends Controller {
 						maxNum = lastNumber;
 					}
 				}
-			}else{
+			} else {
 				Elements resultEpisodeList = root.select("._playlist .result_episode_list");
 				Elements resultEpisode = resultEpisodeList.select(".item");
-				//这里不能直接取最后一个,因为最后一个是收起,只能取倒数第二个为最大集数
-				Element lastResultEpisode = resultEpisode.get(resultEpisode.size()-2);
+				if (resultEpisode.size() <= 0) {
+					log.info("没有找到影片：(" + mediaName + "),对应的数据...");
+					return;
+				}
+
+				// 这里不能直接取最后一个,因为最后一个是收起,只能取倒数第二个为最大集数
+				Element lastResultEpisode = resultEpisode.get(resultEpisode.size() - 2);
 				String lastNum = lastResultEpisode.text();
 				if (StringUtils.isNotBlank(lastNum)) {
 					int lastNumber = Integer.parseInt(lastNum);
@@ -187,7 +192,7 @@ public class IndexController extends Controller {
 				// 通过api请求获取到视频的json信息
 				JSONObject resultObj = QQLiveHtmlUtils.getApiJson(liveDataId, type, maxNum);
 				JSONObject playlistItem = resultObj.getJSONObject("PlaylistItem");
-				if(null == playlistItem){
+				if (null == playlistItem) {
 					return;
 				}
 				JSONArray videoPlayList = playlistItem.getJSONArray("videoPlayList");
