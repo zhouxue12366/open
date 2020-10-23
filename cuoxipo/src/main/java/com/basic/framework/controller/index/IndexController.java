@@ -163,21 +163,20 @@ public class IndexController extends Controller {
 						maxNum = lastNumber;
 					}
 				}
-			} else {
+				
 				Elements resultEpisodeList = root.select("._playlist .result_episode_list");
 				Elements resultEpisode = resultEpisodeList.select(".item");
-				if (resultEpisode.size() <= 0) {
-					log.info("没有找到影片：(" + mediaName + "),对应的数据...");
-					return -1;
+				if (resultEpisode.size() > 0) {
+					// 这里不能直接取最后一个,因为最后一个是收起,只能取倒数第二个为最大集数
+					Element lastResultEpisode = resultEpisode.get(resultEpisode.size() - 2);
+					String lastNum = lastResultEpisode.text();
+					if (StringUtils.isNotBlank(lastNum)) {
+						int lastNumber = Integer.parseInt(lastNum);
+						maxNum = lastNumber;
+					}
 				}
 
-				// 这里不能直接取最后一个,因为最后一个是收起,只能取倒数第二个为最大集数
-				Element lastResultEpisode = resultEpisode.get(resultEpisode.size() - 2);
-				String lastNum = lastResultEpisode.text();
-				if (StringUtils.isNotBlank(lastNum)) {
-					int lastNumber = Integer.parseInt(lastNum);
-					maxNum = lastNumber;
-				}
+				
 			}
 
 			// 获取视频图片
