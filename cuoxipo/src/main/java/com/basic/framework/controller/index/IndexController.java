@@ -113,8 +113,13 @@ public class IndexController extends Controller {
 
 		switch (platform) {
 		case 1:// 腾讯视频爬虫
-			getApiQQLive(mediaName);
-			render("/qqlive/mediaList.html");
+			int qqResult = getApiQQLive(mediaName);
+			if(qqResult ==-1){
+				render("/comm/404.html");
+			}else{
+				render("/qqlive/mediaList.html");
+			}
+			
 			return;
 		case 2:// 爱奇艺爬虫
 			spiderIqiyiLive(mediaName);
@@ -132,7 +137,7 @@ public class IndexController extends Controller {
 		render("/mediaList.html");
 	}
 
-	private void getApiQQLive(String mediaName) {
+	private int getApiQQLive(String mediaName) {
 		try {
 			int type = 0;// 2:电影,4:电视剧
 			String documentUrl = "https://v.qq.com/x/search/?q=" + mediaName + "&stag=0&smartbox_ab=";
@@ -163,7 +168,7 @@ public class IndexController extends Controller {
 				Elements resultEpisode = resultEpisodeList.select(".item");
 				if (resultEpisode.size() <= 0) {
 					log.info("没有找到影片：(" + mediaName + "),对应的数据...");
-					return;
+					return -1;
 				}
 
 				// 这里不能直接取最后一个,因为最后一个是收起,只能取倒数第二个为最大集数
@@ -193,7 +198,7 @@ public class IndexController extends Controller {
 				JSONObject resultObj = QQLiveHtmlUtils.getApiJson(liveDataId, type, maxNum);
 				JSONObject playlistItem = resultObj.getJSONObject("PlaylistItem");
 				if (null == playlistItem) {
-					return;
+					return -1;
 				}
 				JSONArray videoPlayList = playlistItem.getJSONArray("videoPlayList");
 				setAttr("playlistItem", playlistItem);
@@ -214,6 +219,7 @@ public class IndexController extends Controller {
 			log.error("腾讯视频api请求异常:", e);
 		}
 
+		return 0;
 	}
 
 	/**

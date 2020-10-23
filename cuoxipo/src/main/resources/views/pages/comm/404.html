@@ -2,11 +2,34 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>欢迎来到撮溪坡影视城</title>
+<title>欢迎来到撮溪坡影视城-资源不存在</title>
+@include("/comm/head.html"){}
 </head>
 <body>
-<a href="#(ctxPath)">
-           404提示：支持腾讯，优酷，爱奇艺，PPTV，搜狐，芒果，乐视，等VIP视频解析！如果遇到视频无法解析的，通知QQ或者微信联系我们及时处理！解析仅支持学习交流，勿用非法用途！本站不承担任何责任！
-          </a>
+	<div class="header">
+		@include("/comm/top.html"){}
+		<div class="wrap">
+			@include("/comm/search.html"){}
+			<hr>
+		</div>
+	</div>
+	<div class="tlinks">
+		Collect from <a href="http://www.cssmoban.com/" title="撮溪坡影视城">撮溪坡影视城</a>
+	</div>
+	<div class="main">
+		<div class="wrap">
+			<div class="content">
+				<p>404提示：</p>
+				<p style="color: red;">资源不存在。<a href="/">点击返回首页</a></p>
+				<hr>
+				<p>
+					<a href="/">
+						本站支持腾讯，优酷，爱奇艺，PPTV，搜狐，芒果，乐视，等VIP视频解析！如果遇到视频无法解析的，通知QQ或者微信联系我们及时处理！解析仅支持学习交流，勿用非法用途！本站不承担任何责任！
+					</a>
+				</p>
+				</div>
+			</div>
+		</div>
+@include("/comm/footer.html"){}
 </body>
 </html>
