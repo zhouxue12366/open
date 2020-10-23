@@ -10,7 +10,6 @@ import org.apache.log4j.Logger;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.basic.framework.controller.index.IndexController;
 import com.basic.framework.interceptor.LoginInterceptor;
 import com.basic.framework.utils.HttpUtil;
 import com.jfinal.aop.Clear;

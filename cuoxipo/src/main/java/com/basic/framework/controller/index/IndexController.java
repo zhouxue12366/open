@@ -175,14 +175,17 @@ public class IndexController extends Controller {
 						maxNum = lastNumber;
 					}
 				}
-
-				
 			}
 
 			// 获取视频图片
 			Elements infos = root.select("._infos");
-			Elements result = infos.first().select(".desc_more");
-			Document detail = QQLiveHtmlUtils.getHtml(result.attr("href"), 1);
+			String resultHref = documentUrl;
+			if(null != infos.first()){
+				Elements result = infos.first().select(".desc_more");
+				resultHref = result.attr("href");
+			}
+			
+			Document detail = QQLiveHtmlUtils.getHtml(resultHref, 1);
 			if (null != detail) {
 				Elements figure_pic = detail.select(".figure_pic");
 				String imgSrc = figure_pic.first().attr("src");
@@ -208,9 +211,12 @@ public class IndexController extends Controller {
 				// 通过api请求获取到视频的json信息
 				JSONObject resultObj = QQLiveHtmlUtils.getApiJson(liveDataId, type, maxNum);
 				JSONObject playlistItem = resultObj.getJSONObject("PlaylistItem");
-				JSONArray videoPlayList = playlistItem.getJSONArray("videoPlayList");
+				if(null != playlistItem){
+					JSONArray videoPlayList = playlistItem.getJSONArray("videoPlayList");
+					setAttr("videoPlayList", videoPlayList);
+				}
+				
 				setAttr("playlistItem", playlistItem);
-				setAttr("videoPlayList", videoPlayList);
 			}
 			setAttr("type", type);
 
