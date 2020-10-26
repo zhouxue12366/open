@@ -41,6 +41,11 @@ public class NeteaseCloudMusicController extends Controller {
 	private String SEARCH_URL = "/search?keywords=";
 	// private String CLOUDSEARCH_URL = "/cloudsearch?keywords=";
 	 private String DETAIL_URL = "/song/detail?ids=";
+	 
+	 @Clear(LoginInterceptor.class)
+	 public void index() throws UnsupportedEncodingException{
+		 this.mp3();
+	 }
 
 	@Clear(LoginInterceptor.class)
 	public void mp3() throws UnsupportedEncodingException {
