@@ -130,14 +130,20 @@ public class IndexController extends Controller {
 	public void saveUrlConfig(){
 		ResultMessage result = new ResultMessage();
 		String pwd = getPara("pwd");
-		if(StringUtils.isNotBlank(pwd)){
-			if(!pwd.equalsIgnoreCase("111111")){
-				result.setCode(300);
-				result.setMessage("失败");
-				renderJson(result);
-				return;
-			}
+		if(StringUtils.isBlank(pwd)){
+			result.setCode(300);
+			result.setMessage("请输入密码");
+			renderJson(result);
+			return;
 		}
+		
+		if(!pwd.equalsIgnoreCase("123883388")){
+			result.setCode(300);
+			result.setMessage("密码不对");
+			renderJson(result);
+			return;
+		}
+		
 		String url = getPara("url");
 		Integer id = getParaToInt("id" , 0);
 		String name = getPara("name");
