@@ -50,8 +50,8 @@ function saveUrlConfig(){
 								<td><a href="/add?id=${model.id!}">${model.id!}</a></td>
 								<td>${model.url!}</td>
 								<td><a href="/add?id=${model.id!}">${model.name!}</a></td>
-								<td class="${model.status! == 1?'layui-btn-disabled':'layui-btn'}">${model.status! == 1?'禁用':'启用'}</td>
-								<td class="${model.default_play! == 1?'layui-btn-danger':''}">${model.default_play! == 1?'推荐':'否'}</td>
+								<td><span class="${model.status! == 1?'layui-btn-disabled':'layui-btn'}">${model.status! == 1?'禁用':'启用'}</span></td>
+								<td><span class="${model.default_play! == 1?'layui-btn-danger layui-btn':''}">${model.default_play! == 1?'推荐':'否'}</span></td>
 								<td><a href="/add?id=${model.id!}" class="layui-btn layui-btn-primary">修改</a></td>
 							</tr>
 						@}

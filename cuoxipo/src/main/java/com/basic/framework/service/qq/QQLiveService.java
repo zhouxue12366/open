@@ -7,7 +7,7 @@ public class QQLiveService {
 
 	public Record getDefaultPalyUrl(){
 //		ApiUrlConfig dao = new ApiUrlConfig();
-		Record urlConfig = Db.findFirst("select * from api_url_config where default_play = 1" );
+		Record urlConfig = Db.findFirst("select * from api_url_config where default_play = 1 order by id ASC" );
 		return urlConfig;
 	}
 }
