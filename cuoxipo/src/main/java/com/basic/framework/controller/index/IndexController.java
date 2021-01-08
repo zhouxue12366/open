@@ -106,7 +106,7 @@ public class IndexController extends Controller {
 	public void urls(){
 		List<ApiUrlConfig> urlConfigs = new ApiUrlConfig().dao().findAll();
 		setAttr("urlConfigs", urlConfigs);
-		render("/urlApi/List.html");
+		render("/urlApi/list.html");
 	}
 	
 	public void add(){
