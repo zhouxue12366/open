@@ -1,4 +1,4 @@
-jdbcUrl = jdbc:mysql://localhost/cuoxipo?useSSL=false
+jdbcUrl = jdbc:mysql://localhost/cuoxipo?useSSL=false&characterEncoding=utf8
 userName = root
 password = root
 port = 3306

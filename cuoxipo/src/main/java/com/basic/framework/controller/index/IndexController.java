@@ -12,11 +12,15 @@ import org.jsoup.select.Elements;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.basic.framework.interceptor.LoginInterceptor;
+import com.basic.framework.model.ApiUrlConfig;
 import com.basic.framework.model.VideoTv;
+import com.basic.framework.service.qq.QQLiveService;
 import com.basic.framework.spider.QQLiveSpider;
 import com.basic.framework.utils.DocumentToolkit;
 import com.basic.framework.utils.QQLiveHtmlUtils;
+import com.basic.framework.utils.ResultMessage;
 import com.jfinal.aop.Clear;
+import com.jfinal.core.ActionKey;
 import com.jfinal.core.Controller;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.Record;
@@ -60,48 +64,6 @@ public class IndexController extends Controller {
 		render("/preview.html");
 	}
 
-	/**
-	 * 文武要获取定位信息
-	 * 
-	 * @Title jiangying
-	 * @Description
-	 * @since 2020年4月1日 下午5:28:41
-	 */
-	@Clear(LoginInterceptor.class)
-	public void jiangying() {
-		log.info("to location html......");
-		render("/location.html");
-	}
-
-	/**
-	 * 
-	 * @Title jiangying
-	 * @Description
-	 * @since 2020年4月13日 下午5:15:36
-	 */
-	@Clear(LoginInterceptor.class)
-	public void jiangyingQQ() {
-		log.info("to location html......");
-		render("/location_qq.html");
-	}
-
-	/***
-	 * 文武的查看定位信息
-	 * 
-	 * @Title wenwu
-	 * @Description
-	 * @since 2020年4月1日 下午5:27:43
-	 */
-	@Clear(LoginInterceptor.class)
-	public void wenwu() {
-		log.info("to location html......");
-		Record record = Db.findFirst("select * from user_location order by id desc");
-		JSONObject obj = JSONObject.parseObject(record.get("location"));
-		setAttr("record", record);
-		setAttr("xy", "[" + obj.getString("xy") + "]");
-		render("/locationShow.html");
-	}
-
 	public void search() {
 		// List<Record> recordList = spiderQQLive(get("mediaName"));
 		// setAttr("recordList", recordList);
@@ -110,6 +72,10 @@ public class IndexController extends Controller {
 		log.info(platform + "搜索" + mediaName);
 		setAttr("platform", platform);
 		setAttr("mediaName", mediaName);
+		
+		QQLiveService qqService = new QQLiveService();
+		Record urlConfig = qqService.getDefaultPalyUrl();
+		setAttr("urlConfig", urlConfig);
 
 		switch (platform) {
 		case 1:// 腾讯视频爬虫
@@ -135,6 +101,69 @@ public class IndexController extends Controller {
 			break;
 		}
 		render("/mediaList.html");
+	}
+	
+	public void urls(){
+		List<ApiUrlConfig> urlConfigs = new ApiUrlConfig().dao().findAll();
+		setAttr("urlConfigs", urlConfigs);
+		render("/urlApi/List.html");
+	}
+	
+	public void add(){
+		Integer id = getParaToInt("id" , 0);
+		if(id <= 0){
+			render("/add.html");
+			return;
+		}
+		ApiUrlConfig urlConfig = new ApiUrlConfig().dao().findById(id);
+		setAttr("urlConfig", urlConfig);
+		render("/add.html");
+	}
+	
+	/**
+	 * 更新线路
+	 * @Title saveUrlConfig
+	 * @Description  
+	 * @return 
+	 * @since 2021年1月8日 下午1:06:17
+	 */
+	public void saveUrlConfig(){
+		ResultMessage result = new ResultMessage();
+		String pwd = getPara("pwd");
+		if(StringUtils.isNotBlank(pwd)){
+			if(!pwd.equalsIgnoreCase("111111")){
+				result.setCode(300);
+				result.setMessage("失败");
+				renderJson(result);
+				return;
+			}
+		}
+		String url = getPara("url");
+		Integer id = getParaToInt("id" , 0);
+		String name = getPara("name");
+		int defaultPlay = getParaToInt("defaultPlay");
+		ApiUrlConfig urlConfig = ApiUrlConfig.dao.findById(id);
+		
+		int count = 0;
+		if(null == urlConfig){
+			urlConfig = new ApiUrlConfig();
+			urlConfig.setId(id);
+			urlConfig.setName(name);
+			urlConfig.setUrl(url);
+			urlConfig.setStatus(0);
+			urlConfig.setDefaultPlay(defaultPlay);
+			count = urlConfig.save()? 1 : 0;
+		}else{
+			urlConfig.setId(id);
+			urlConfig.setName(name);
+			urlConfig.setUrl(url);
+			urlConfig.setStatus(0);
+			urlConfig.setDefaultPlay(defaultPlay);
+			count = urlConfig.update()? 1 : 0;
+		}
+		result.setData(count);
+		result.setCode(200);
+		renderJson(result);
 	}
 
 	private int getApiQQLive(String mediaName) {

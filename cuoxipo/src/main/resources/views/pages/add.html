@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>撮溪坡影视城-更新apiURL地址</title>
+@include("/comm/head.html"){}
+
+<script type="text/javascript">
+// "/user/login"
+function saveUrlConfig(){
+	$.ajax({
+        type: "POST",
+        url:"/saveUrlConfig",
+        data:$('#urlConfig').serialize(),// 要提交的表单 
+        success: function(data) {
+//         	console.log(data);
+        	if(data.code == 200){
+        		layer.msg("保存成功",{time:2000}, function(){
+        			window.location.href="/urls";
+        		});
+        	}else{
+        		layer.msg("保存失败");
+        	}
+        	
+       	}
+    });
+}
+</script>
+</head>
+
+<body>
+	<div class="header">
+		@include("/comm/top.html"){}
+		<div class="wrap">
+			<div class="main" style="height: 950px;">
+				<div class="wrap">
+					<div class="content">
+						<div style="width: 100%">
+							<form class="layui-form" method="post" id="urlConfig">
+								<input type="hidden" name="id" value="${urlConfig.id!}"/>
+								<div class="layui-input-inline">
+							    	<label class="layui-form-label">密码:</label>
+								    <div class="layui-input-inline">
+								      <input type="password" name="pwd" required lay-verify="required" placeholder="请输入密码" autocomplete="off" class="layui-input" style="width: 500px">
+								    </div>
+							    </div>
+							    <br/>
+							    <br/>
+								<div class="layui-input-inline">
+									<label class="layui-form-label">url:</label>
+								    <div class="layui-input-inline">
+								      <input type="text" name="url" placeholder="请输入url" required  lay-verify="required" autocomplete="off" class="layui-input" value="${urlConfig.url!}" style="width: 500px">
+								    </div>
+							    </div>
+							    <br/>
+							    <br/>
+							    <div class="layui-input-inline">
+							    	<label class="layui-form-label">名称:</label>
+								    <div class="layui-input-inline">
+								      <input type="text" name="name" required lay-verify="required" placeholder="请输入名称" autocomplete="off" class="layui-input" value="${urlConfig.name!}" style="width: 500px">
+								    </div>
+							    </div>
+							    <br/>
+							    <br/>
+							    <div class="layui-input-inline">
+							    	<label class="layui-form-label">状态:</label>
+								    <div class="layui-input-inline">
+								      <input type="text" name="status" required lay-verify="required" placeholder="状态；0：启用，1：停用" autocomplete="off" class="layui-input" value="${urlConfig.status!}" style="width: 500px">
+								    </div>
+							    </div>
+							    <br/>
+							    <br/>
+							    <div class="layui-input-inline">
+							    	<label class="layui-form-label">是否默认推荐:</label>
+								    <div class="layui-input-inline">
+								      <input type="text" name="defaultPlay" required lay-verify="required" placeholder="0:不默认，1： 默认" autocomplete="off" class="layui-input" value="${urlConfig.default_play!}" style="width: 500px">
+								    </div>
+							    </div>
+							    <br/>
+							    <br/>
+							    
+								<div class="layui-form-item">
+								    <div class="layui-input-block">
+								      <button class="layui-btn" type="button" onclick="saveUrlConfig()">保存</button>
+								      <a class="layui-btn layui-btn-primary" href="/urls">返回列表</a>
+								    </div>
+							  </div>
+							</form>					
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	@include("/comm/footer.html"){}
+</body>
+</html>

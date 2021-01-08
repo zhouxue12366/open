@@ -16,6 +16,7 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 public class _MappingKit {
 	
 	public static void mapping(ActiveRecordPlugin arp) {
+		arp.addMapping("api_url_config", "id", ApiUrlConfig.class);
 		arp.addMapping("user_info", "id", UserInfo.class);
 		arp.addMapping("user_location", "id", UserLocation.class);
 		arp.addMapping("video_tv", "id", VideoTv.class);

@@ -4,6 +4,7 @@ import org.beetl.core.GroupTemplate;
 import org.beetl.ext.jfinal.JFinalBeetlRenderFactory;
 
 import com.basic.framework.interceptor.LoginInterceptor;
+import com.basic.framework.model._MappingKit;
 import com.jfinal.config.Constants;
 import com.jfinal.config.Handlers;
 import com.jfinal.config.Interceptors;
@@ -79,10 +80,14 @@ public class JfinalConf extends JFinalConfig {
 	public void configPlugin(Plugins me) {
 		//配置数据库连接
 		DruidPlugin dp = new DruidPlugin(prop.get("jdbcUrl"), prop.get("userName"), prop.get("password").trim());
+		//指定编码为utf8mb4    
+		dp.setConnectionInitSql("set names utf8mb4");
 	    me.add(dp);
 	    //配置Record插件
 	    ActiveRecordPlugin arp = new ActiveRecordPlugin(dp);
 	    me.add(arp);
+	    //实体类直接dao方法
+	    _MappingKit.mapping(arp);
 	}
 
 	@Override

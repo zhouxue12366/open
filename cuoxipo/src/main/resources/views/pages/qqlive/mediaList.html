@@ -70,7 +70,8 @@ function login(){
 							<p>全屏新页面播放点这里:
 							@for(item in videoPlayList!){
 								@if(item.type == "1"){
-									<a href="https://api.sigujx.com/?url=${item.playUrl!}" class="layui-btn layui-btn-warm" target="_blank" style="padding-left: 10px; margin-top: 10px;">${item.episode_number!}${item.type! == "2"?'(预告)':''}</a>
+									<a href="${urlConfig.url}${item.playUrl!}" class="layui-btn layui-btn-warm" target="_blank" style="padding-left: 10px; margin-top: 10px;">${item.episode_number!}${item.type! == "2"?'(预告)':''}</a>
+<!-- 									<a href="https://api.sigujx.com/?url=${item.playUrl!}" class="layui-btn layui-btn-warm" target="_blank" style="padding-left: 10px; margin-top: 10px;">${item.episode_number!}${item.type! == "2"?'(预告)':''}</a> -->
 								@}
 								    
 							@}

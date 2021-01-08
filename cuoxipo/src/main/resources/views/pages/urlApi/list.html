@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>撮溪坡影视城-更新apiURL地址</title>
+@include("/comm/head.html"){}
+
+<script type="text/javascript">
+// "/user/login"
+function saveUrlConfig(){
+	$.ajax({
+        type: "POST",
+        url:"/saveUrlConfig",
+        data:$('#urlConfig').serialize(),// 要提交的表单 
+        success: function(data) {
+//         	console.log(data);
+        	if(data.code == 200){
+        		layer.msg("保存成功",{time:2000}, function(){
+        			window.location.reload();
+        		});
+        	}else{
+        		layer.msg("保存失败");
+        	}
+        	
+       	}
+    });
+}
+</script>
+</head>
+
+<body>
+	<div class="header">
+		@include("/comm/top.html"){}
+		<div class="wrap">
+			<div class="main" style="height: 950px;">
+				<div class="wrap">
+					<div class="content">
+						<div style="width: 100%">
+						<a href="/add" class="layui-btn">新增</a>
+						<table class="layui-table">
+						<tr>
+							<td>ID</td>
+							<td>URL</td>
+							<td>名称</td>
+							<td>状态</td>
+							<td>首页推荐</td>
+							<td>操作</td>
+						</tr>
+						@for(model in urlConfigs!){
+							<tr>
+								<td><a href="/add?id=${model.id!}">${model.id!}</a></td>
+								<td>${model.url!}</td>
+								<td><a href="/add?id=${model.id!}">${model.name!}</a></td>
+								<td class="${model.status! == 1?'layui-btn-disabled':'layui-btn'}">${model.status! == 1?'禁用':'启用'}</td>
+								<td class="${model.default_play! == 1?'layui-btn-danger':''}">${model.default_play! == 1?'推荐':'否'}</td>
+								<td><a href="/add?id=${model.id!}" class="layui-btn layui-btn-primary">修改</a></td>
+							</tr>
+						@}
+						
+						</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	@include("/comm/footer.html"){}
+</body>
+</html>
